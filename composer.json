@@ -1,0 +1,30 @@
+{
+  "name": "esas/cmsgate-hutkigrosh-lib",
+  "description": "CMSGate Hutkigrosh integration library",
+  "keywords": [
+    "hutkigrosh",
+    "esas",
+    "payment gateway",
+    "cmsgate",
+    "api"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Esas",
+      "email": "hutkigrosh@esas.com"
+    }
+  ],
+  "require": {
+    "php": ">= 5.6.0",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "tecnickcom/tc-lib-barcode": "1.15.12",
+    "esas/cmsgate-core": "v1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src"
+    }
+  }
+}
