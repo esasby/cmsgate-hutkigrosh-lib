@@ -12,7 +12,7 @@ namespace esas\cmsgate;
 use esas\cmsgate\view\client\CompletionPanel;
 
 /**
- * Реализация шаблона registry для удобства доступа к $configurationWrapper и $translator.
+ * Реализация шаблона registry для удобства доступа к $configWrapper и $translator.
  * В каждой CMS должен быть обязательно наследован и проинициализирован через Registry->init()
  * Class Registry
  * @package esas\cmsgate

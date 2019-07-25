@@ -35,7 +35,7 @@ class CompletionPanel
     /**
      * @var ConfigWrapperHutkigrosh
      */
-    private $configurationWrapper;
+    private $configWrapper;
 
     /**
      * @var Translator
@@ -59,19 +59,19 @@ class CompletionPanel
 
     /**
      * ViewData constructor.
-     * @param ConfigWrapperHutkigrosh $configurationWrapper
+     * @param ConfigWrapperHutkigrosh $configWrapper
      * @param OrderWrapper $orderWrapper
      */
     public function __construct(OrderWrapper $orderWrapper)
     {
         $this->logger = Logger::getLogger(get_class($this));
-        $this->configurationWrapper = Registry::getRegistry()->getConfigurationWrapper();
+        $this->configWrapper = Registry::getRegistry()->getConfigWrapper();
         $this->translator = Registry::getRegistry()->getTranslator();
         $this->orderWrapper = $orderWrapper;
-        if ("default" == $this->configurationWrapper->getCompletionCssFile())
+        if ("default" == $this->configWrapper->getCompletionCssFile())
             $this->additionalCssFile = dirname(__FILE__) . "/completion-default.css";
         else
-            $this->additionalCssFile = $_SERVER['DOCUMENT_ROOT'] . $this->configurationWrapper->getCompletionCssFile();
+            $this->additionalCssFile = $_SERVER['DOCUMENT_ROOT'] . $this->configWrapper->getCompletionCssFile();
     }
 
     public function render()
@@ -108,7 +108,7 @@ class CompletionPanel
      */
     public function getInstructionsText()
     {
-        return $this->configurationWrapper->cookText($this->translator->translate(ViewFields::INSTRUCTIONS), $this->orderWrapper);
+        return $this->configWrapper->cookText($this->translator->translate(ViewFields::INSTRUCTIONS), $this->orderWrapper);
     }
 
 
@@ -117,7 +117,7 @@ class CompletionPanel
      */
     public function getCompletionText()
     {
-        return $this->configurationWrapper->cookText($this->configurationWrapper->getCompletionText(), $this->orderWrapper);
+        return $this->configWrapper->cookText($this->configWrapper->getCompletionText(), $this->orderWrapper);
     }
 
     /**
@@ -125,7 +125,7 @@ class CompletionPanel
      */
     public function isInstructionsSectionEnabled()
     {
-        return $this->configurationWrapper->isInstructionsSectionEnabled();
+        return $this->configWrapper->isInstructionsSectionEnabled();
     }
 
     /**
@@ -133,7 +133,7 @@ class CompletionPanel
      */
     public function isWebpaySectionEnabled()
     {
-        return $this->configurationWrapper->isWebpaySectionEnabled();
+        return $this->configWrapper->isWebpaySectionEnabled();
     }
 
     /**
@@ -141,7 +141,7 @@ class CompletionPanel
      */
     public function isQRCodeSectionEnabled()
     {
-        return $this->configurationWrapper->isQRCodeSectionEnabled();
+        return $this->configWrapper->isQRCodeSectionEnabled();
     }
 
     /**
@@ -248,7 +248,7 @@ class CompletionPanel
      */
     public function isAlfaclickSectionEnabled()
     {
-        return $this->configurationWrapper->isAlfaclickSectionEnabled();
+        return $this->configWrapper->isAlfaclickSectionEnabled();
     }
 
     /**
@@ -256,7 +256,7 @@ class CompletionPanel
      */
     public function getAlfaclickBillID()
     {
-        return $this->orderWrapper->getBillId();
+        return $this->orderWrapper->getExtId();
     }
 
     /**

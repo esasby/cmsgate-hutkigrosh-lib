@@ -14,8 +14,8 @@ use COption;
 use esas\cmsgate\lang\TranslatorBitrix;
 use esas\cmsgate\lang\TranslatorOpencart;
 use esas\cmsgate\utils\RequestParams;
-use esas\cmsgate\wrappers\ConfigurationWrapperBitrix;
-use esas\cmsgate\wrappers\ConfigurationWrapperOpencart;
+use esas\cmsgate\wrappers\ConfigWrapperBitrix;
+use esas\cmsgate\wrappers\ConfigWrapperOpencart;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Registry;
 

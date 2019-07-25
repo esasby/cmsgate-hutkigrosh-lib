@@ -3,7 +3,7 @@
 namespace esas\cmsgate\protocol;
 
 use esas\cmsgate\utils\Logger;
-use esas\cmsgate\wrappers\ConfigWrapperHutkigrosh;
+use esas\cmsgate\wrappers\ConfigWrapper;
 use Exception;
 use Throwable;
 
@@ -26,18 +26,18 @@ class HutkigroshProtocol
     private $logger;
 
     /**
-     * @var ConfigurationWrapper
+     * @var ConfigWrapper
      */
-    private $configurationWrapper;
+    private $configWrapper;
 
     /**
      * @param bool $is_test Использовать ли тестовый api
      */
-    public function __construct($configurationWrapper)
+    public function __construct($configWrapper)
     {
         $this->logger = Logger::getLogger(HutkigroshProtocol::class);
-        $this->configurationWrapper = $configurationWrapper;
-        if ($this->configurationWrapper->isSandbox()) {
+        $this->configWrapper = $configWrapper;
+        if ($this->configWrapper->isSandbox()) {
             $this->base_url = self::API_URL_TEST;
             $this->logger->info("Test mode is on");
         } else {
@@ -76,7 +76,7 @@ class HutkigroshProtocol
         $resp = new HutkigroshLoginRs();
         try {
             if ($loginRq == null)
-                $loginRq = new HutkigroshLoginRq($this->configurationWrapper->getHutkigroshLogin(), $this->configurationWrapper->getHutkigroshPassword());
+                $loginRq = new HutkigroshLoginRq($this->configWrapper->getHutkigroshLogin(), $this->configWrapper->getHutkigroshPassword());
             $this->logger->info("Logging in: host[" . $this->base_url . "],  username[" . $loginRq->getUsername() . "]");
             if (empty($loginRq->getUsername()) || empty($loginRq->getPassword())) {
                 throw new Exception("Ошибка конфигурации! Не задан login или password", HutkigroshRs::ERROR_CONFIG);
