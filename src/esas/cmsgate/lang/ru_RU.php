@@ -3,10 +3,6 @@
 use esas\cmsgate\ConfigFieldsHutkigrosh;
 use esas\cmsgate\view\client\ViewFields;
 
-const _DESC = '_desc';
-const _DEFAULT = '_default';
-const _ERROR_VALIDATION = 'error_validation_';
-
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Название магазина',
     ConfigFieldsHutkigrosh::shopName() . _DESC => 'Произвольное название Вашего магазина',
