@@ -214,17 +214,6 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
     }
 
     /**
-     * При необходимости соблюдения определенных правил в именовании ключей настроек (зависящих от конкретной CMS)
-     * Данный метод должен быть переопределен
-     * @param $key
-     * @return string
-     */
-    public function createCmsRelatedKey($key)
-    {
-        return "hutkigrosh_" . $key;
-    }
-
-    /**
      * Нельзя делать в конструкторе
      */
     public function getDefaultConfig($key)
