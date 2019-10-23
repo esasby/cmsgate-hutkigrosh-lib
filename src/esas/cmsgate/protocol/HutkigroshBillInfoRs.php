@@ -11,6 +11,7 @@ namespace esas\cmsgate\protocol;
 
 class HutkigroshBillInfoRs extends HutkigroshRs
 {
+    private $billId;
     private $eripId;
     private $invId;
     private $fullName;
@@ -23,6 +24,22 @@ class HutkigroshBillInfoRs extends HutkigroshRs
     private $amount;
     private $products;
     private $status;
+
+    /**
+     * @return string
+     */
+    public function getBillId()
+    {
+        return $this->billId;
+    }
+
+    /**
+     * @param string $billId
+     */
+    public function setBillId($billId)
+    {
+        $this->billId = trim($billId);
+    }
 
     /**
      * @return mixed

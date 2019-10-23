@@ -55,7 +55,7 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
             if ($this->billInfoRs->hasError())
                 throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());
             $this->logger->info($loggerMainString . 'Loading local order object for id[' . $this->billInfoRs->getInvId() . "]");
-            $this->localOrderWrapper = Registry::getRegistry()->getOrderWrapper($this->billInfoRs->getInvId());
+            $this->localOrderWrapper = $this->getOrderWrapperForBill($this->billInfoRs);
             if (empty($this->localOrderWrapper))
                 throw new Exception('Can not load order info for id[' . $this->billInfoRs->getInvId() . "]");
             if (!$this->configWrapper->isSandbox() // на тестовой системе это пока не работает
@@ -82,6 +82,15 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
         } catch (Exception $e) { // для совместимости с php 5
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
         }
+    }
+
+    /**
+     * @param HutkigroshBillInfoRs $billInfoRs
+     * @return OrderWrapper
+     */
+    public function getOrderWrapperForBill($billInfoRs)
+    {
+        return Registry::getRegistry()->getOrderWrapper($billInfoRs->getInvId()); // будет работать, только если orderId = orderNumber
     }
 
     /**
