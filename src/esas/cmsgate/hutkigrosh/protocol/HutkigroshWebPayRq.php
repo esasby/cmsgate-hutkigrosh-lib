@@ -1,0 +1,84 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nikit
+ * Date: 16.02.2018
+ * Time: 12:50
+ */
+
+namespace esas\cmsgate\hutkigrosh\protocol;
+
+
+class HutkigroshWebPayRq extends HutkigroshRq
+{
+    private $billId;
+    private $returnUrl;
+    private $cancelReturnUrl;
+    private $buttonLabel = "Pay with card";
+
+    /**
+     * @return mixed
+     */
+    public function getBillId()
+    {
+        return $this->billId;
+    }
+
+    /**
+     * @param mixed $billId
+     */
+    public function setBillId($billId)
+    {
+        $this->billId = $billId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReturnUrl()
+    {
+        return $this->returnUrl;
+    }
+
+    /**
+     * @param mixed $returnUrl
+     */
+    public function setReturnUrl($returnUrl)
+    {
+        $this->returnUrl = $returnUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCancelReturnUrl()
+    {
+        return $this->cancelReturnUrl;
+    }
+
+    /**
+     * @param mixed $cancelReturnUrl
+     */
+    public function setCancelReturnUrl($cancelReturnUrl)
+    {
+        $this->cancelReturnUrl = $cancelReturnUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getButtonLabel()
+    {
+        return $this->buttonLabel;
+    }
+
+    /**
+     * @param mixed $buttonLabel
+     */
+    public function setButtonLabel($buttonLabel)
+    {
+        $this->buttonLabel = $buttonLabel;
+    }
+
+
+}
