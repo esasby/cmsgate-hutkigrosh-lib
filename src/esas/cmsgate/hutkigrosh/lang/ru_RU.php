@@ -2,6 +2,7 @@
 
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ViewFields;
+use esas\cmsgate\view\admin\AdminViewFields;
 
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Название магазина',
@@ -105,4 +106,7 @@ style="color: #8c2003;"><span>здесь</span></a></p>',
     ViewFields::WEBPAY_MSG_SUCCESS => 'Счет успешно оплачен через сервис WebPay',
     ViewFields::WEBPAY_MSG_UNSUCCESS => 'Ошибка оплаты счета через сервис WebPay',
     ViewFields::WEBPAY_MSG_UNAVAILABLE => 'Извините, операция временно недоступна',
+
+    AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'ХуткiГрош',
+    AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Оплата через ЕРИП',
 );

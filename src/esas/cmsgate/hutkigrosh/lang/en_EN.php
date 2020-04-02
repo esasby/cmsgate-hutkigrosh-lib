@@ -2,6 +2,7 @@
 
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ViewFields;
+use esas\cmsgate\view\admin\AdminViewFields;
 
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Shop name',
@@ -103,4 +104,7 @@ return array(
     ViewFields::WEBPAY_MSG_SUCCESS => 'Webpay: payment completed!',
     ViewFields::WEBPAY_MSG_UNSUCCESS => 'Webpay: payment failed!',
     ViewFields::WEBPAY_MSG_UNAVAILABLE => 'Sorry, operation currently not available',
+
+    AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'Hutkigrosh',
+    AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Payment via ERIP',
 );
