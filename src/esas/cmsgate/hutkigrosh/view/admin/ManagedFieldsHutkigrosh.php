@@ -54,6 +54,8 @@ class ManagedFieldsHutkigrosh extends ManagedFields
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::sandbox())));
         $this->registerField(
+            (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::debugMode())));
+        $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::notificationEmail())));
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::notificationSms())));
