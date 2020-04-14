@@ -47,5 +47,8 @@ abstract class RegistryHutkigrosh extends Registry
         return "hutkigrosh";
     }
 
+    abstract function getUrlAlfaclick($orderId);
+
+    abstract function getUrlWebpay($orderId);
 
 }

@@ -59,12 +59,12 @@ class ControllerHutkigroshWebpayForm extends ControllerHutkigrosh
      */
     public function generateSuccessReturnUrl(OrderWrapper $orderWrapper)
     {
-        return RegistryHutkigrosh::getRegistry()->getConfigWrapper()->getUrlWebpay($orderWrapper->getOrderId()) . '&' . RequestParamsHutkigrosh::WEBPAY_STATUS . '=payed';
+        return RegistryHutkigrosh::getRegistry()->getUrlWebpay($orderWrapper->getOrderId()) . '&' . RequestParamsHutkigrosh::WEBPAY_STATUS . '=payed';
     }
 
     public function generateUnsuccessReturnUrl(OrderWrapper $orderWrapper)
     {
-        return RegistryHutkigrosh::getRegistry()->getConfigWrapper()->getUrlWebpay($orderWrapper->getOrderId()) . '&' . RequestParamsHutkigrosh::WEBPAY_STATUS . '=failed';
+        return RegistryHutkigrosh::getRegistry()->getUrlWebpay($orderWrapper->getOrderId()) . '&' . RequestParamsHutkigrosh::WEBPAY_STATUS . '=failed';
     }
 
 }

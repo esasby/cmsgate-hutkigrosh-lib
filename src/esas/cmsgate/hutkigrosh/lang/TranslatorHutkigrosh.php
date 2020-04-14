@@ -17,8 +17,8 @@ class TranslatorHutkigrosh extends TranslatorImpl
      * TranslatorHutkigrosh constructor.
      * @param $localeLoader
      */
-    public function __construct($localeLoader)
+    public function __construct()
     {
-        parent::__construct($localeLoader, __DIR__);
+        parent::__construct(__DIR__);
     }
 }

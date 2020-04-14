@@ -13,7 +13,7 @@ use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\ConfigWrapper;
 use esas\cmsgate\wrappers\OrderWrapper;
 
-abstract class ConfigWrapperHutkigrosh extends ConfigWrapper
+class ConfigWrapperHutkigrosh extends ConfigWrapper
 {
     /**
      * Произольно название интернет-мазагина
@@ -239,9 +239,5 @@ abstract class ConfigWrapperHutkigrosh extends ConfigWrapper
                 return Registry::getRegistry()->getTranslator()->getConfigFieldDefault($key);
         }
     }
-
-    abstract function getUrlAlfaclick($orderId);
-
-    abstract function getUrlWebpay($orderId);
 
 }
