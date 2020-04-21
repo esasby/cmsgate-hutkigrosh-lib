@@ -14,7 +14,7 @@ use esas\cmsgate\hutkigrosh\protocol\HutkigroshWebPayRs;
 use esas\cmsgate\Registry;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\ViewFields;
+use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
@@ -40,7 +40,7 @@ class ControllerHutkigroshWebpayForm extends ControllerHutkigrosh
             $webPayRq->setBillId($orderWrapper->getExtId());
             $webPayRq->setReturnUrl($this->generateSuccessReturnUrl($orderWrapper));
             $webPayRq->setCancelReturnUrl($this->generateUnsuccessReturnUrl($orderWrapper));
-            $webPayRq->setButtonLabel(Registry::getRegistry()->getTranslator()->translate(ViewFields::WEBPAY_BUTTON_LABEL));
+            $webPayRq->setButtonLabel(Registry::getRegistry()->getTranslator()->translate(ClientViewFieldsHutkigrosh::WEBPAY_BUTTON_LABEL));
             $webPayRs = $hg->apiWebPay($webPayRq);
             $hg->apiLogOut();
             $this->logger->info($loggerMainString . "Controller ended");

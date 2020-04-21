@@ -13,7 +13,7 @@ namespace esas\cmsgate\hutkigrosh\view\client;
  * Class ViewFields
  * @package esas\hutkigrosh\view
  */
-class ViewFields
+class ClientViewFieldsHutkigrosh
 {
     const INSTRUCTIONS_TAB_LABEL = 'hutkigrosh_instructions_tab_label';
     const INSTRUCTIONS = 'hutkigrosh_instructions_text';

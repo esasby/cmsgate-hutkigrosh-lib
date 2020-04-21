@@ -10,7 +10,7 @@ namespace esas\cmsgate\hutkigrosh;
 
 
 use esas\cmsgate\Registry;
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanel;
+use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 
 /**
@@ -39,7 +39,7 @@ abstract class RegistryHutkigrosh extends Registry
 
     public function getCompletionPanel($orderWrapper)
     {
-        $completionPanel = new CompletionPanel($orderWrapper);
+        $completionPanel = new CompletionPanelHutkigrosh($orderWrapper);
         return $completionPanel;
     }
 

@@ -10,8 +10,7 @@ namespace esas\cmsgate\hutkigrosh\controllers;
 
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanel;
-use esas\cmsgate\wrappers\OrderWrapper;
+use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use Exception;
 use Throwable;
 
@@ -19,7 +18,7 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
 {
     /**
      * @param $orderId
-     * @return CompletionPanel
+     * @return CompletionPanelHutkigrosh
      * @throws Throwable
      */
     public function process($orderId)

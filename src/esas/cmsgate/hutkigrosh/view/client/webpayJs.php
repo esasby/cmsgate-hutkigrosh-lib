@@ -7,7 +7,7 @@
  */
 
 /** @var array $scriptData */
-/** @var \esas\cmsgate\hutkigrosh\view\client\CompletionPanel $completionPanel */
+/** @var \esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh $completionPanel */
 $completionPanel = $this->scriptData["completionPanel"];
 ?>
 

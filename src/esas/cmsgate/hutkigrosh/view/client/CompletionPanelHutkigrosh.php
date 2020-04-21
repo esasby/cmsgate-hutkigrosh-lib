@@ -20,13 +20,13 @@ use esas\cmsgate\utils\ResourceUtils;
 use esas\cmsgate\wrappers\OrderWrapper;
 
 /**
- * Class CompletionPanel используется для формирования итоговой страницы. Основной класс
+ * Class CompletionPanelHutkigrosh используется для формирования итоговой страницы. Основной класс
  * для темазависимого представления (HGCMS-23).
  * Разбит на множество мелких методов для возможности легкого переопрделения. Что позволяет формировать итоговоую
  * страницу в тегах и CSS-классах принятых в конкретных CMS
  * @package esas\hutkigrosh\view\client
  */
-class CompletionPanel
+class CompletionPanelHutkigrosh
 {
     /**
      * @var Logger
@@ -108,7 +108,7 @@ class CompletionPanel
      */
     public function getInstructionsTabLabel()
     {
-        return $this->translator->translate(ViewFields::INSTRUCTIONS_TAB_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::INSTRUCTIONS_TAB_LABEL);
     }
 
     /**
@@ -116,7 +116,7 @@ class CompletionPanel
      */
     public function getInstructionsText()
     {
-        return $this->configWrapper->cookText($this->translator->translate(ViewFields::INSTRUCTIONS), $this->orderWrapper);
+        return $this->configWrapper->cookText($this->translator->translate(ClientViewFieldsHutkigrosh::INSTRUCTIONS), $this->orderWrapper);
     }
 
 
@@ -157,7 +157,7 @@ class CompletionPanel
      */
     public function getQRCodeTabLabel()
     {
-        return $this->translator->translate(ViewFields::QRCODE_TAB_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::QRCODE_TAB_LABEL);
     }
 
     /**
@@ -165,7 +165,7 @@ class CompletionPanel
      */
     public function getQRCodeDetails()
     {
-        return strtr($this->translator->translate(ViewFields::QRCODE_DETAILS), array(
+        return strtr($this->translator->translate(ClientViewFieldsHutkigrosh::QRCODE_DETAILS), array(
             "@qr_code" => QRUtils::getEripBillQR($this->orderWrapper->getOrderId())
         ));
     }
@@ -207,7 +207,7 @@ class CompletionPanel
      */
     public function getWebpayTabLabel()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_TAB_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_TAB_LABEL);
     }
 
     /**
@@ -215,7 +215,7 @@ class CompletionPanel
      */
     public function getWebpayButtonLabel()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_BUTTON_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_BUTTON_LABEL);
     }
 
 
@@ -224,7 +224,7 @@ class CompletionPanel
      */
     public function getWebpayDetails()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_DETAILS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_DETAILS);
     }
 
     /**
@@ -232,7 +232,7 @@ class CompletionPanel
      */
     public function getWebpayMsgSuccess()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_MSG_SUCCESS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_SUCCESS);
     }
 
     /**
@@ -240,7 +240,7 @@ class CompletionPanel
      */
     public function getWebpayMsgUnsuccess()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_MSG_UNSUCCESS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNSUCCESS);
     }
 
     /**
@@ -248,7 +248,7 @@ class CompletionPanel
      */
     public function getWebpayMsgUnavailable()
     {
-        return $this->translator->translate(ViewFields::WEBPAY_MSG_UNAVAILABLE);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE);
     }
 
     /**
@@ -296,7 +296,7 @@ class CompletionPanel
      */
     public function getAlfaclickTabLabel()
     {
-        return $this->translator->translate(ViewFields::ALFACLICK_TAB_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::ALFACLICK_TAB_LABEL);
     }
 
     /**
@@ -304,7 +304,7 @@ class CompletionPanel
      */
     public function getAlfaclickButtonLabel()
     {
-        return $this->translator->translate(ViewFields::ALFACLICK_BUTTON_LABEL);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::ALFACLICK_BUTTON_LABEL);
     }
 
     /**
@@ -312,7 +312,7 @@ class CompletionPanel
      */
     public function getAlfaclickDetails()
     {
-        return $this->translator->translate(ViewFields::ALFACLICK_DETAILS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::ALFACLICK_DETAILS);
     }
 
     /**
@@ -320,7 +320,7 @@ class CompletionPanel
      */
     public function getAlfaclickMsgSuccess()
     {
-        return $this->translator->translate(ViewFields::ALFACLICK_MSG_SUCCESS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::ALFACLICK_MSG_SUCCESS);
     }
 
     /**
@@ -328,7 +328,7 @@ class CompletionPanel
      */
     public function getAlfaclickMsgUnsuccess()
     {
-        return $this->translator->translate(ViewFields::ALFACLICK_MSG_UNSUCCESS);
+        return $this->translator->translate(ClientViewFieldsHutkigrosh::ALFACLICK_MSG_UNSUCCESS);
     }
 
 
@@ -467,7 +467,7 @@ class CompletionPanel
         $ret =
             element::div(
                 attribute::id("webpay_details"),
-                element::content($this->translator->translate(ViewFields::WEBPAY_DETAILS)),
+                element::content($this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_DETAILS)),
                 element::br());
 
         $ret .= $this->elementWebpayTabContentResultMsg($status);
@@ -489,7 +489,7 @@ class CompletionPanel
             $ret .=
                 element::div(
                     attribute::id("webpay_message_unavailable"),
-                    element::content($this->translator->translate(ViewFields::WEBPAY_MSG_UNAVAILABLE)));
+                    element::content($this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE)));
         }
         return $ret;
     }
@@ -501,13 +501,13 @@ class CompletionPanel
                 element::div(
                     attribute::clazz($this->getCssClass4MsgSuccess()),
                     attribute::id("webpay_message"),
-                    element::content($this->translator->translate(ViewFields::WEBPAY_MSG_SUCCESS)));
+                    element::content($this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_SUCCESS)));
         } elseif (self::STATUS_FAILED == $status) {
             return
                 element::div(
                     attribute::clazz($this->getCssClass4MsgUnsuccess()),
                     attribute::id("webpay_message"),
-                    element::content($this->translator->translate(ViewFields::WEBPAY_MSG_UNSUCCESS)));
+                    element::content($this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNSUCCESS)));
         } else
             return "";
     }

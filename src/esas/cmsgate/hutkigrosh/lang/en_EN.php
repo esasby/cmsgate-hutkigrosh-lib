@@ -1,7 +1,7 @@
 <?php
 
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\ViewFields;
+use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
 
 return array(
@@ -76,8 +76,8 @@ return array(
     ConfigFieldsHutkigrosh::eripPath() => 'ERIP PATH',
     ConfigFieldsHutkigrosh::eripPath() . _DESC => 'По какому пути клиент должен искать выставленный счет',
 
-    ViewFields::INSTRUCTIONS_TAB_LABEL => 'Payment instructions',
-    ViewFields::INSTRUCTIONS => '<p>To pay an bill in ERIP:</p>
+    ClientViewFieldsHutkigrosh::INSTRUCTIONS_TAB_LABEL => 'Payment instructions',
+    ClientViewFieldsHutkigrosh::INSTRUCTIONS => '<p>To pay an bill in ERIP:</p>
 <ol>
     <li>Select the ERIP payment tree</li>
     <li>Select a service: <strong>@erip_path</strong></li>
@@ -86,24 +86,24 @@ return array(
     <li>Make a payment</li>
 </ol>',
 
-    ViewFields::QRCODE_TAB_LABEL => 'Pay with QR-code',
-    ViewFields::QRCODE_DETAILS => '<p>You can pay this bill by QR-code:</p>
+    ClientViewFieldsHutkigrosh::QRCODE_TAB_LABEL => 'Pay with QR-code',
+    ClientViewFieldsHutkigrosh::QRCODE_DETAILS => '<p>You can pay this bill by QR-code:</p>
 <div align="center">@qr_code</div>
 <p>To get information about mobile apps with QR-code payment support please visit <a href="http://pay.raschet.by/" target="_blank"style="color: #8c2003;"><span>this link</span></a></p>',
 
 
-    ViewFields::ALFACLICK_TAB_LABEL => 'Add bill to «Alfa-click»',
-    ViewFields::ALFACLICK_DETAILS => 'You can add bill to «Alfa-click» system (e-Invoicing)',
-    ViewFields::ALFACLICK_BUTTON_LABEL => 'Add bill',
-    ViewFields::ALFACLICK_MSG_SUCCESS => 'Bill was added to «Alfa-click»',
-    ViewFields::ALFACLICK_MSG_UNSUCCESS => 'Can not add bill to «Alfa-click»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_TAB_LABEL => 'Add bill to «Alfa-click»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_DETAILS => 'You can add bill to «Alfa-click» system (e-Invoicing)',
+    ClientViewFieldsHutkigrosh::ALFACLICK_BUTTON_LABEL => 'Add bill',
+    ClientViewFieldsHutkigrosh::ALFACLICK_MSG_SUCCESS => 'Bill was added to «Alfa-click»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_MSG_UNSUCCESS => 'Can not add bill to «Alfa-click»',
 
-    ViewFields::WEBPAY_TAB_LABEL => 'Pay with card',
-    ViewFields::WEBPAY_DETAILS => 'You can pay bill with Visa, Mastercard or Belcard',
-    ViewFields::WEBPAY_BUTTON_LABEL => 'Continue',
-    ViewFields::WEBPAY_MSG_SUCCESS => 'Webpay: payment completed!',
-    ViewFields::WEBPAY_MSG_UNSUCCESS => 'Webpay: payment failed!',
-    ViewFields::WEBPAY_MSG_UNAVAILABLE => 'Sorry, operation currently not available',
+    ClientViewFieldsHutkigrosh::WEBPAY_TAB_LABEL => 'Pay with card',
+    ClientViewFieldsHutkigrosh::WEBPAY_DETAILS => 'You can pay bill with Visa, Mastercard or Belcard',
+    ClientViewFieldsHutkigrosh::WEBPAY_BUTTON_LABEL => 'Continue',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_SUCCESS => 'Webpay: payment completed!',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNSUCCESS => 'Webpay: payment failed!',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE => 'Sorry, operation currently not available',
 
     AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'Hutkigrosh',
     AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Payment via ERIP',

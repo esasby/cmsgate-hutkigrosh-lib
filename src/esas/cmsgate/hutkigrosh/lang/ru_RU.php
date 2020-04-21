@@ -1,7 +1,7 @@
 <?php
 
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\ViewFields;
+use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
 
 return array(
@@ -79,8 +79,8 @@ return array(
     ConfigFieldsHutkigrosh::eripPath() => 'Путь в дереве ЕРИП',
     ConfigFieldsHutkigrosh::eripPath() . _DESC => 'По какому пути клиент должен искать выставленный счет',
 
-    ViewFields::INSTRUCTIONS_TAB_LABEL => 'Инструкция по оплате счета в ЕРИП',
-    ViewFields::INSTRUCTIONS => '<p>Для оплаты счета в ЕРИП необходимо:</p>
+    ClientViewFieldsHutkigrosh::INSTRUCTIONS_TAB_LABEL => 'Инструкция по оплате счета в ЕРИП',
+    ClientViewFieldsHutkigrosh::INSTRUCTIONS => '<p>Для оплаты счета в ЕРИП необходимо:</p>
 <ol>
     <li>Выбрать дерево платежей ЕРИП</li>
     <li>Выбрать услугу: <strong>@erip_path</strong></li>
@@ -90,22 +90,22 @@ return array(
 </ol>',
 
 
-    ViewFields::QRCODE_TAB_LABEL => 'Оплата по QR-коду',
-    ViewFields::QRCODE_DETAILS => '<p>Оплатить счет через банковское мобильное приложение по QR-коду:</p><div align="center">@qr_code</div><p>Информация о мобильных приложениях, поддерживающих сервис оплаты по QR-коду (платёжной ссылке), <a href="http://pay.raschet.by/" target="_blank"
+    ClientViewFieldsHutkigrosh::QRCODE_TAB_LABEL => 'Оплата по QR-коду',
+    ClientViewFieldsHutkigrosh::QRCODE_DETAILS => '<p>Оплатить счет через банковское мобильное приложение по QR-коду:</p><div align="center">@qr_code</div><p>Информация о мобильных приложениях, поддерживающих сервис оплаты по QR-коду (платёжной ссылке), <a href="http://pay.raschet.by/" target="_blank"
 style="color: #8c2003;"><span>здесь</span></a></p>',
 
-    ViewFields::ALFACLICK_TAB_LABEL => 'Выставить счет в «Альфа-Клик»',
-    ViewFields::ALFACLICK_DETAILS => 'Вы можете выставить счет в систему «Альфа-Клик». После этого он будет отражен в интернет-банке в пункте меню «Оплата счетов». Укажите свой номер телефона для выставления счета. ',
-    ViewFields::ALFACLICK_BUTTON_LABEL => 'Выставить счет',
-    ViewFields::ALFACLICK_MSG_SUCCESS => 'Счет успешно выставлен в систему «Альфа-Клик»',
-    ViewFields::ALFACLICK_MSG_UNSUCCESS => 'Ошибка выставления счета в систему «Альфа-Клик»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_TAB_LABEL => 'Выставить счет в «Альфа-Клик»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_DETAILS => 'Вы можете выставить счет в систему «Альфа-Клик». После этого он будет отражен в интернет-банке в пункте меню «Оплата счетов». Укажите свой номер телефона для выставления счета. ',
+    ClientViewFieldsHutkigrosh::ALFACLICK_BUTTON_LABEL => 'Выставить счет',
+    ClientViewFieldsHutkigrosh::ALFACLICK_MSG_SUCCESS => 'Счет успешно выставлен в систему «Альфа-Клик»',
+    ClientViewFieldsHutkigrosh::ALFACLICK_MSG_UNSUCCESS => 'Ошибка выставления счета в систему «Альфа-Клик»',
 
-    ViewFields::WEBPAY_TAB_LABEL => 'Оплатить картой',
-    ViewFields::WEBPAY_DETAILS => 'Вы можете оплатить счет с помощью карты Visa, Mastercard или Белкарт через систему электронных платежей WEBPAY',
-    ViewFields::WEBPAY_BUTTON_LABEL => 'Перейти к оплате',
-    ViewFields::WEBPAY_MSG_SUCCESS => 'Счет успешно оплачен через сервис WebPay',
-    ViewFields::WEBPAY_MSG_UNSUCCESS => 'Ошибка оплаты счета через сервис WebPay',
-    ViewFields::WEBPAY_MSG_UNAVAILABLE => 'Извините, операция временно недоступна',
+    ClientViewFieldsHutkigrosh::WEBPAY_TAB_LABEL => 'Оплатить картой',
+    ClientViewFieldsHutkigrosh::WEBPAY_DETAILS => 'Вы можете оплатить счет с помощью карты Visa, Mastercard или Белкарт через систему электронных платежей WEBPAY',
+    ClientViewFieldsHutkigrosh::WEBPAY_BUTTON_LABEL => 'Перейти к оплате',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_SUCCESS => 'Счет успешно оплачен через сервис WebPay',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNSUCCESS => 'Ошибка оплаты счета через сервис WebPay',
+    ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE => 'Извините, операция временно недоступна',
 
     AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'ХуткiГрош',
     AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Оплата через ЕРИП',
