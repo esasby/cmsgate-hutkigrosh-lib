@@ -17,5 +17,7 @@ class RequestParamsHutkigrosh extends RequestParams
     const PHONE = "phone";
     const PURCHASE_ID = "purchaseid"; // не менять, т.к. приходит с ХГ
     const ORDER_NUMBER = "order_number";
+    const ORDER_ID = "order_id";
     const WEBPAY_STATUS = "webpay_status";
+    const HUTKIGROSH_STATUS = "hutkigrosh_status";
 }
