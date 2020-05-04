@@ -6,7 +6,7 @@
  * Time: 13:45
  */
 
-namespace esas\cmsgate\epos;
+namespace esas\cmsgate\hutkigrosh;
 
 
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
