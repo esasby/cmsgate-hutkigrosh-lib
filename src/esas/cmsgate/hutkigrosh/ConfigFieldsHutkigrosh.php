@@ -87,4 +87,9 @@ class ConfigFieldsHutkigrosh extends ConfigFields
     {
         return self::getCmsRelatedKey("due_interval");
     }
+
+    public static function cookiePath()
+    {
+        return self::getCmsRelatedKey("cookie_path");
+    }
 }

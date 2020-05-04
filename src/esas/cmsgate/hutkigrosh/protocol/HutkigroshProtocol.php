@@ -46,11 +46,14 @@ class HutkigroshProtocol
         } else {
             $this->base_url = self::API_URL;
         }
-
         if (!isset(self::$cookies_file)) {
             self::$cookies_file = 'cookies-' . time() . '.txt';
         }
-        $this->setCookiesDir(dirname(__FILE__) . DIRECTORY_SEPARATOR . "cookies");
+        $dir = $this->configWrapper->getCookiePath();
+        if (empty($dir)) {
+            $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . "cookies";
+        }
+        $this->setCookiesDir($dir);
     }
 
     /**

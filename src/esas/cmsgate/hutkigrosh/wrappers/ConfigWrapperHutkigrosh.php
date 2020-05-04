@@ -144,6 +144,15 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
     }
 
     /**
+     * Кастомный путь к директории cookie файлов
+     * @return string
+     */
+    public function getCookiePath()
+    {
+        return $this->getConfig(ConfigFieldsHutkigrosh::cookiePath());
+    }
+
+    /**
      * Какой срок действия счета после его выставления (в днях)
      * @return string
      */
@@ -192,6 +201,8 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
                 return $this->getDueInterval();
             case ConfigFieldsHutkigrosh::eripPath():
                 return $this->getEripPath();
+            case ConfigFieldsHutkigrosh::cookiePath():
+                return $this->getCookiePath();
             default:
                 return parent::get($config_key);
         }
