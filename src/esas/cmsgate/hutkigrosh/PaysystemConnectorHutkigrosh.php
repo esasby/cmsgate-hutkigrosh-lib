@@ -10,8 +10,10 @@ namespace esas\cmsgate\hutkigrosh;
 
 
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
+use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsFactoryHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\PaysystemConnector;
+use esas\cmsgate\view\admin\ManagedFieldsFactory;
 
 class PaysystemConnectorHutkigrosh extends PaysystemConnector
 {
@@ -24,5 +26,13 @@ class PaysystemConnectorHutkigrosh extends PaysystemConnector
     public function createTranslator()
     {
         return new TranslatorHutkigrosh();
+    }
+
+    /**
+     * @return ManagedFieldsFactory
+     */
+    public function createManagedFieldsFactory()
+    {
+        return new ManagedFieldsFactoryHutkigrosh();
     }
 }

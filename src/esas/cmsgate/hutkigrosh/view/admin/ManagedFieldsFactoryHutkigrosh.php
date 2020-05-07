@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Created by IntelliJ IDEA.
  * User: nikit
- * Date: 30.09.2018
- * Time: 15:15
+ * Date: 05.05.2020
+ * Time: 15:19
  */
 
 namespace esas\cmsgate\hutkigrosh\view\admin;
@@ -16,21 +16,17 @@ use esas\cmsgate\view\admin\fields\ConfigFieldPassword;
 use esas\cmsgate\view\admin\fields\ConfigFieldRichtext;
 use esas\cmsgate\view\admin\fields\ConfigFieldStatusList;
 use esas\cmsgate\view\admin\fields\ConfigFieldText;
-use esas\cmsgate\view\admin\ManagedFields;
+use esas\cmsgate\view\admin\ManagedFieldsFactory;
 use esas\cmsgate\view\admin\validators\ValidatorEmail;
 use esas\cmsgate\view\admin\validators\ValidatorImpl;
 use esas\cmsgate\view\admin\validators\ValidatorInteger;
 use esas\cmsgate\view\admin\validators\ValidatorNotEmpty;
 use esas\cmsgate\view\admin\validators\ValidatorNumeric;
 
-class ManagedFieldsHutkigrosh extends ManagedFields
+class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
 {
-        /**
-     * ManagedFieldsHutkigrosh constructor.
-     */
-    public function __construct()
+    public function initFields()
     {
-        parent::__construct();
         $this->registerField(
             (new ConfigFieldText(ConfigFieldsHutkigrosh::shopName()))
                 ->setValidator(new ValidatorNotEmpty())
@@ -96,9 +92,5 @@ class ManagedFieldsHutkigrosh extends ManagedFields
             (new ConfigFieldRichtext(ConfigFieldsHutkigrosh::paymentMethodDetails()))
                 ->setRequired(true)
                 ->setValidator(new ValidatorNotEmpty()));
-
     }
 }
-
-
-
