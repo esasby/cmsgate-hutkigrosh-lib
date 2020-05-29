@@ -43,10 +43,6 @@ abstract class RegistryHutkigrosh extends Registry
         return $completionPanel;
     }
 
-    public function getPaySystemName() {
-        return "hutkigrosh";
-    }
-
     abstract function getUrlAlfaclick($orderId);
 
     abstract function getUrlWebpay($orderId);

@@ -9,6 +9,9 @@
 namespace esas\cmsgate\hutkigrosh;
 
 
+use esas\cmsgate\descriptors\PaySystemConnectorDescriptor;
+use esas\cmsgate\descriptors\VendorDescriptor;
+use esas\cmsgate\descriptors\VersionDescriptor;
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsFactoryHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
@@ -17,7 +20,6 @@ use esas\cmsgate\view\admin\ManagedFieldsFactory;
 
 class PaysystemConnectorHutkigrosh extends PaysystemConnector
 {
-
     public function createConfigWrapper()
     {
         return new ConfigWrapperHutkigrosh();
@@ -34,5 +36,17 @@ class PaysystemConnectorHutkigrosh extends PaysystemConnector
     public function createManagedFieldsFactory()
     {
         return new ManagedFieldsFactoryHutkigrosh();
+    }
+
+    public function createPaySystemConnectorDescriptor()
+    {
+        return new PaySystemConnectorDescriptor(
+            "cmsgate-hutkigrosh-lib",
+            new VersionDescriptor("v1.10.0", "2020-05-29"),
+            "Hutkigrosh (ERIP Belarus) cmsgate connector",
+            "www.hutkigrosh.by",
+            VendorDescriptor::esas(),
+            "hutkigrosh"
+        );
     }
 }

@@ -16,5 +16,5 @@ $completionPanel = $this->scriptData["completionPanel"];
 <script>
     var webpay_form_button = $('#webpay input[type="submit"]');
     webpay_form_button.attr('id', 'webpay_button');
-    webpay_form_button.addClass('<?= $completionPanel->getCssClass4WebpayButton() ?>');
+    webpay_form_button.addClass('hutkigrosh-button <?= $completionPanel->getCssClass4WebpayButton() ?>');
 </script>

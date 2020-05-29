@@ -108,5 +108,5 @@ style="color: #8c2003;"><span>здесь</span></a></p>',
     ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE => 'Извините, операция временно недоступна',
 
     AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'ХуткiГрош',
-    AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Оплата через ЕРИП',
+    AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => '«Хуткi Грош»™ — многофункциональный сервис по подключению к ЕРИП (cистеме платежей АИС «Расчет») для расчета и приема платежей за товары и услуги по всей Беларуси. «Хуткi Грош»™ — один из крупнейших агрегаторов оплат НКФО "ЕРИП", резидент Парка высоких технологий.',
 );

@@ -479,7 +479,7 @@ class CompletionPanelHutkigrosh
                     attribute::align("right"),
                     element::img(
                         attribute::id("webpay-ps-image"),
-                        attribute::src(ResourceUtils::getImageUrl('ps_icons.png')),
+                        attribute::src(ResourceUtils::getResourceUrl(dirname(dirname(dirname(__FILE__))) . '/image/ps_icons.png')),
                         attribute::alt("")
                     ),
                     element::br(),
@@ -546,7 +546,7 @@ class CompletionPanelHutkigrosh
                     attribute::clazz($this->getCssClass4FormInput()),
                     attribute::maxlength('20')),
                 element::a(
-                    attribute::clazz($this->getCssClass4AlfaclickButton()),
+                    attribute::clazz("hutkigrosh-button " . $this->getCssClass4AlfaclickButton()),
                     attribute::id("alfaclick_button"),
                     element::content($this->getAlfaclickButtonLabel()))
             );
