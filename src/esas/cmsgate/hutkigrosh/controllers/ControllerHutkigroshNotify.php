@@ -33,6 +33,7 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
 
     /**
      * @param $billId
+     * @return HutkigroshBillInfoRs
      * @throws Exception
      */
     public function process($billId = null)
@@ -82,6 +83,8 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
         } catch (Exception $e) { // для совместимости с php 5
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
+        } finally {
+            return $this->billInfoRs;
         }
     }
     
