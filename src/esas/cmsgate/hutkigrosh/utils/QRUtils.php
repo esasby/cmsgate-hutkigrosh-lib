@@ -15,10 +15,9 @@ use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 class QRUtils
 {
 
-    public static function getEripBillQR($orderId)
+    public static function getEripBillQR($orderWrapper)
     {
         $configWrapper = RegistryHutkigrosh::getRegistry()->getConfigWrapper();
-        $orderWrapper = RegistryHutkigrosh::getRegistry()->getOrderWrapper($orderId);
         $qrCodeString =
             self::tlv(0, "01") .
             self::tlv(1, "11") .

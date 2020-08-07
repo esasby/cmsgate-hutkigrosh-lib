@@ -166,7 +166,7 @@ class CompletionPanelHutkigrosh
     public function getQRCodeDetails()
     {
         return strtr($this->translator->translate(ClientViewFieldsHutkigrosh::QRCODE_DETAILS), array(
-            "@qr_code" => QRUtils::getEripBillQR($this->orderWrapper->getOrderId())
+            "@qr_code" => QRUtils::getEripBillQR($this->orderWrapper)
         ));
     }
 
