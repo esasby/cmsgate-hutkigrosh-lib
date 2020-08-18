@@ -67,4 +67,8 @@ class ControllerHutkigroshWebpayForm extends ControllerHutkigrosh
         return RegistryHutkigrosh::getRegistry()->getUrlWebpay($orderWrapper->getOrderId()) . '&' . RequestParamsHutkigrosh::WEBPAY_STATUS . '=failed';
     }
 
+    public static function isSuccessReturnUrl() {
+        return $_REQUEST[RequestParamsHutkigrosh::WEBPAY_STATUS] == "payed";
+    }
+
 }
