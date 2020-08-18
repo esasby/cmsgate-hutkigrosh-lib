@@ -12,7 +12,7 @@ $completionPanel = $this->scriptData["completionPanel"];
 ?>
 
 <script type="text/javascript"
-        src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.11.0.min.js"></script>
+        src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.0.min.js"></script>
 <script>
     var webpay_form_button = $('#webpay input[type="submit"]');
     webpay_form_button.attr('id', 'webpay_button');
