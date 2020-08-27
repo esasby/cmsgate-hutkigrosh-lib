@@ -6,6 +6,7 @@ use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\protocol\Amount;
 use esas\cmsgate\protocol\RsType;
 use esas\cmsgate\Registry;
+use esas\cmsgate\utils\EncodingUtils;
 use esas\cmsgate\utils\Logger;
 use Exception;
 use Throwable;
@@ -143,7 +144,7 @@ class HutkigroshProtocol
             $Bill->addChild('invId', $billNewRq->getInvId());
             $Bill->addChild('dueDt', date('c', strtotime('+' . $billNewRq->getDueInterval() . ' days'))); // +N день
             $Bill->addChild('addedDt', date('c'));
-            $Bill->addChild('fullName', self::convert2utf8($billNewRq->getFullName()));
+            $Bill->addChild('fullName', EncodingUtils::convertToUtf8($billNewRq->getFullName()));
             $Bill->addChild('mobilePhone', $billNewRq->getMobilePhone());
             $Bill->addChild('notifyByMobilePhone', $billNewRq->isNotifyByMobilePhone() ? "true" : "false");
             if (!empty($billNewRq->getEmail())) {
@@ -151,7 +152,7 @@ class HutkigroshProtocol
                 $Bill->addChild('notifyByEMail', $billNewRq->isNotifyByEMail() ? "true" : "false");
             }
             if (!empty($billNewRq->getFullAddress())) {
-                $Bill->addChild('fullAddress', self::convert2utf8($billNewRq->getFullAddress())); // опционально
+                $Bill->addChild('fullAddress', EncodingUtils::convertToUtf8($billNewRq->getFullAddress())); // опционально
             }
             $Bill->addChild('amt', (float)$billNewRq->getAmount()->getValue());
             $Bill->addChild('curr', $billNewRq->getAmount()->getCurrency());
@@ -164,7 +165,7 @@ class HutkigroshProtocol
                     if (!empty($pr->getInvId())) {
                         $ProductInfo->addChild('invItemId', $pr->getInvId()); // опционально
                     }
-                    $ProductInfo->addChild('desc', htmlentities(self::convert2utf8($pr->getName()), ENT_XML1));
+                    $ProductInfo->addChild('desc', htmlentities(EncodingUtils::convertToUtf8($pr->getName()), ENT_XML1));
                     $ProductInfo->addChild('count', $pr->getCount());
                     if (!empty($pr->getUnitPrice())) {
                         $ProductInfo->addChild('amt', $pr->getUnitPrice()); // опционально
@@ -249,7 +250,7 @@ class HutkigroshProtocol
             $Bill->addChild('billId', $webPayRq->getBillId());
             $Bill->addChild('returnUrl', htmlspecialchars($webPayRq->getReturnUrl()));
             $Bill->addChild('cancelReturnUrl', htmlspecialchars($webPayRq->getCancelReturnUrl()));
-            $Bill->addChild('submitValue', $webPayRq->getButtonLabel());
+            $Bill->addChild('submitValue', EncodingUtils::convertToUtf8($webPayRq->getButtonLabel()));
             $xml = $Bill->asXML();
             // запрос
             $resStr = $this->requestPost('Pay/WebPay', $xml, RsType::_STRING);
@@ -258,7 +259,7 @@ class HutkigroshProtocol
                 throw new Exception("Неверный формат ответа", HutkigroshRs::ERROR_RESP_FORMAT);
             }
             $resp->setResponseCode($resXml->status);
-            $resp->setHtmlForm($resXml->form->__toString());
+            $resp->setHtmlForm(EncodingUtils::convertFromUtf8($resXml->form->__toString()));
             $this->logger->debug($loggerMainString . "apiWebPay ended");
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "apiWebPay exception: ", $e);
@@ -441,14 +442,4 @@ class HutkigroshProtocol
         }
         return $array;
     }
-
-    /**
-     * Принудительная конвертация кодировки в utf8
-     * @param $string
-     * @return string
-     */
-    public static function convert2utf8($string) {
-        return mb_convert_encoding($string, "utf-8", Registry::getRegistry()->getCmsConnector()->getCurrentEncoding());
-    }
-
 }
