@@ -12,6 +12,7 @@ namespace esas\cmsgate\hutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
+use esas\cmsgate\wrappers\OrderWrapper;
 
 /**
  * Реализация шаблона registry для удобства доступа к $configWrapper и $translator.
@@ -43,8 +44,16 @@ abstract class RegistryHutkigrosh extends Registry
         return $completionPanel;
     }
 
-    abstract function getUrlAlfaclick($orderId);
+    /**
+     * @param OrderWrapper $orderWrapper
+     * @return mixed
+     */
+    abstract function getUrlAlfaclick($orderWrapper);
 
-    abstract function getUrlWebpay($orderId);
+    /**
+     * @param OrderWrapper $orderWrapper
+     * @return mixed
+     */
+    abstract function getUrlWebpay($orderWrapper);
 
 }

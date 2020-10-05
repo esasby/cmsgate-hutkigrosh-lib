@@ -230,22 +230,17 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
     public function getDefaultConfig($key)
     {
         switch ($key) {
-            case ConfigFieldsHutkigrosh::sandbox():
-                return true;
             case ConfigFieldsHutkigrosh::notificationEmail():
-                return true;
             case ConfigFieldsHutkigrosh::notificationSms():
+            case ConfigFieldsHutkigrosh::instructionsSection():
+            case ConfigFieldsHutkigrosh::qrcodeSection():
+            case ConfigFieldsHutkigrosh::webpaySection():
+            case ConfigFieldsHutkigrosh::sandbox():
                 return true;
             case ConfigFieldsHutkigrosh::dueInterval():
                 return 2;
-            case ConfigFieldsHutkigrosh::instructionsSection():
-                return true;
-            case ConfigFieldsHutkigrosh::qrcodeSection():
-                return true;
             case ConfigFieldsHutkigrosh::alfaclickSection():
                 return false;
-            case ConfigFieldsHutkigrosh::webpaySection():
-                return true;
             default:
                 return Registry::getRegistry()->getTranslator()->getConfigFieldDefault($key);
         }

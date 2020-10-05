@@ -29,7 +29,7 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
             $this->logger->info($loggerMainString . "Controller started");
             $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
             if ($this->configWrapper->isAlfaclickSectionEnabled()) {
-                $completionPanel->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderId));
+                $completionPanel->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderWrapper));
             }
             if ($this->configWrapper->isWebpaySectionEnabled()) {
                 $controller = new ControllerHutkigroshWebpayForm();
