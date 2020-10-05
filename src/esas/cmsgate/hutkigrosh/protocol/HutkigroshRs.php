@@ -97,4 +97,8 @@ class HutkigroshRs
     {
         return $this->responseCode != '0';
     }
+
+    public static function arraySafe($strOrArray) {
+        return is_array($strOrArray) ? implode("", $strOrArray) : trim($strOrArray);
+    }
 }

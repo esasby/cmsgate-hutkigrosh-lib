@@ -88,7 +88,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
      */
     public function setFullName($fullName)
     {
-        $this->fullName = trim($fullName);
+        $this->fullName = self::arraySafe($fullName);
     }
 
     /**
@@ -104,7 +104,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
      */
     public function setMobilePhone($mobilePhone)
     {
-        $this->mobilePhone = trim($mobilePhone);
+        $this->mobilePhone = self::arraySafe($mobilePhone);
     }
 
     /**
@@ -120,7 +120,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
      */
     public function setEmail($email)
     {
-        $this->email = trim($email);
+        $this->email = self::arraySafe($email);
     }
 
     /**
@@ -136,7 +136,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
      */
     public function setFullAddress($fullAddress)
     {
-        $this->fullAddress = trim($fullAddress);
+        $this->fullAddress = self::arraySafe($fullAddress);
     }
 
     /**
