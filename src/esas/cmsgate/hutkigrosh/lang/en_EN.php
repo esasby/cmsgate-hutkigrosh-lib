@@ -58,6 +58,14 @@ return array(
     ConfigFieldsHutkigrosh::paymentMethodDetails() . _DESC => 'Description of the payment method that will be shown to the client at the time of payment',
     ConfigFieldsHutkigrosh::paymentMethodDetails() . _DEFAULT => 'Hutkigrosh™ — payment service for invoicing in AIS *Raschet* (ERIP). After invoicing you will be available for payment by a plastic card and electronic money, at any of the bank branches, cash desks, ATMs, payment terminals, in the electronic money system, through Internet banking, M-banking, Internet acquiring',
 
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() => 'Payment method name (webpay)',
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() . _DESC => 'Name displayed to the customer when choosing a payment method',
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() . _DEFAULT => 'By card',
+
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() => 'Payment method details (webpay)',
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DESC => 'Description of the payment method that will be shown to the client at the time of payment',
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DEFAULT => 'Payment by card (VISA, Maestro, Belcard) view Webpay',
+
     ConfigFieldsHutkigrosh::billStatusPending() => 'Bill status pending',
     ConfigFieldsHutkigrosh::billStatusPending() . _DESC => 'Mapped status for pending bills',
 

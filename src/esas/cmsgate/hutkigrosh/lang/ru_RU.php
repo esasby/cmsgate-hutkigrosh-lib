@@ -61,6 +61,14 @@ return array(
     ConfigFieldsHutkigrosh::paymentMethodDetails() . _DEFAULT => '«Хуткi Грош»™ — платежный сервис по выставлению счетов в АИС *Расчет* (ЕРИП). ' .
         'После выставления счета Вам будет доступна его оплата пластиковой карточкой и электронными деньгами, в любом из отделений банков, кассах, банкоматах, платежных терминалах, в системе электронных денег, через Интернет-банкинг, М-банкинг, интернет-эквайринг',
 
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() => 'Название способы оплаты webpay',
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() . _DESC => 'Название, отображаемое клиенту, при выборе способа оплаты',
+    ConfigFieldsHutkigrosh::paymentMethodNameWebpay() . _DEFAULT => 'Оплата картой',
+
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() => 'Описание способа оплаты webpay',
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DESC => 'Описание, отображаемое клиенту, при выборе способа оплаты',
+    ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DEFAULT => 'Оплата заказа картой VISA/MasterCard/Белкарт через сервис WebPay',
+
     ConfigFieldsHutkigrosh::billStatusPending() => 'Статус при выставлении счета',
     ConfigFieldsHutkigrosh::billStatusPending() . _DESC => 'Какой статус выставить заказу при успешном выставлении счета в ЕРИП (идентификатор существующего статуса)',
 

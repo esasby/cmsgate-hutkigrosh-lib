@@ -8,6 +8,7 @@
 
 namespace esas\cmsgate\hutkigrosh\wrappers;
 
+use esas\cmsgate\ConfigFields;
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\ConfigWrapper;
@@ -161,6 +162,23 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
         return $this->getConfig(ConfigFieldsHutkigrosh::dueInterval());
     }
 
+    /**
+     * Название системы для прямой оплаты через Webpay
+     * @return string
+     */
+    public function getPaymentMethodNameWebpay()
+    {
+        return $this->getConfig(ConfigFieldsHutkigrosh::paymentMethodNameWebpay());
+    }
+
+    /**
+     * Описание системы для прямой оплаты через Webpay
+     * @return string
+     */
+    public function getPaymentMethodDetailsWebpay()
+    {
+        return $this->getConfig(ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay());
+    }
 
     /**
      * Метод для получения значения праметра по ключу
@@ -203,6 +221,10 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
                 return $this->getEripPath();
             case ConfigFieldsHutkigrosh::cookiePath():
                 return $this->getCookiePath();
+            case ConfigFieldsHutkigrosh::paymentMethodNameWebpay():
+                return $this->getPaymentMethodNameWebpay();
+            case ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay():
+                return $this->getPaymentMethodDetailsWebpay();
             default:
                 return parent::get($config_key);
         }

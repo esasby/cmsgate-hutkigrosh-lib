@@ -92,4 +92,18 @@ class ConfigFieldsHutkigrosh extends ConfigFields
     {
         return self::getCmsRelatedKey("cookie_path");
     }
+
+    /**
+     * Настройки для отдельного способа оплаты webpay (клиенту более очевидна, что оплата по карте)
+     * @return mixed
+     */
+    public static function paymentMethodNameWebpay()
+    {
+        return self::getCmsRelatedKey("payment_method_name_webpay");
+    }
+
+    public static function paymentMethodDetailsWebpay()
+    {
+        return self::getCmsRelatedKey("payment_method_details_webpay");
+    }
 }

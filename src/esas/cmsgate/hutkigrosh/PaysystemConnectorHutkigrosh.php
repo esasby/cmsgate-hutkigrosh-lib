@@ -42,7 +42,7 @@ class PaysystemConnectorHutkigrosh extends PaysystemConnector
     {
         return new PaySystemConnectorDescriptor(
             "cmsgate-hutkigrosh-lib",
-            new VersionDescriptor("v1.12.2", "2020-08-27"),
+            new VersionDescriptor("v1.12.3", "2020-10-06"),
             "Hutkigrosh (ERIP Belarus) cmsgate connector",
             "www.hutkigrosh.by",
             VendorDescriptor::esas(),
