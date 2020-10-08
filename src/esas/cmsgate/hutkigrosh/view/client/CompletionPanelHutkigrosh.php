@@ -84,6 +84,18 @@ class CompletionPanelHutkigrosh
         echo $completionPanel;
     }
 
+    public function renderWebpayOnly()
+    {
+        $completionPanel =
+            $this->elementTab(
+                self::TAB_KEY_WEBPAY,
+                $this->getWebpayTabLabel(),
+                $this->elementWebpayTabContent($this->getWebpayStatus(), $this->getWebpayForm()),
+                false
+            );
+        echo $completionPanel;
+    }
+
     public function addTabs()
     {
         return array(
@@ -332,35 +344,53 @@ class CompletionPanelHutkigrosh
     }
 
 
-    public function elementTab($key, $header, $body)
+    public function elementTab($key, $header, $body, $selectable = true)
     {
         return
             element::div(
                 attribute::id("tab-" . $key),
                 attribute::clazz("tab " . $this->getCssClass4Tab()),
-                element::input(
-                    attribute::id("input-" . $key),
-                    attribute::type("radio"),
-                    attribute::name("tabs2"),
-                    attribute::checked($this->isTabChecked($key))
-                ),
-                element::div(
-                    attribute::clazz("tab-header " . $this->getCssClass4TabHeader()),
-                    element::label(
-                        attribute::forr("input-" . $key),
-                        attribute::clazz($this->getCssClass4TabHeaderLabel()),
-                        element::content($header)
-                    )
-                ),
-                element::div(
-                    attribute::clazz("tab-body " . $this->getCssClass4TabBody()),
-                    element::div(
-                        attribute::id($key . "-content"),
-                        attribute::clazz("tab-body-content " . $this->getCssClass4TabBodyContent()),
-                        element::content($body)
-                    )
-                )
+                $this->elementTabHeaderInput($key, $selectable),
+                $this->elementTabHeader($key, $header),
+                $this->elementTabBody($key, $body)
             )->__toString();
+    }
+
+    public function elementTabHeader($key, $header)
+    {
+        return
+            element::div(
+                attribute::clazz("tab-header " . $this->getCssClass4TabHeader()),
+                element::label(
+                    attribute::forr("input-" . $key),
+                    attribute::clazz($this->getCssClass4TabHeaderLabel()),
+                    element::content($header)
+                )
+            );
+    }
+
+    public function elementTabHeaderInput($key, $selectable)
+    {
+        return
+            ($selectable ? element::input(
+                attribute::id("input-" . $key),
+                attribute::type("radio"),
+                attribute::name("tabs2"),
+                attribute::checked($this->isTabChecked($key))
+            ) : "");
+    }
+
+    public function elementTabBody($key, $body)
+    {
+        return
+            element::div(
+                attribute::clazz("tab-body " . $this->getCssClass4TabBody()),
+                element::div(
+                    attribute::id($key . "-content"),
+                    attribute::clazz("tab-body-content " . $this->getCssClass4TabBodyContent()),
+                    element::content($body)
+                )
+            );
     }
 
     public function isTabChecked($tabKey)
@@ -489,6 +519,7 @@ class CompletionPanelHutkigrosh
             $ret .=
                 element::div(
                     attribute::id("webpay_message_unavailable"),
+                    attribute::clazz($this->getCssClass4MsgUnsuccess()),
                     element::content($this->translator->translate(ClientViewFieldsHutkigrosh::WEBPAY_MSG_UNAVAILABLE)));
         }
         return $ret;
