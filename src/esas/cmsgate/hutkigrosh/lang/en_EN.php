@@ -44,7 +44,7 @@ return array(
     ConfigFieldsHutkigrosh::completionText() => 'Completion text',
     ConfigFieldsHutkigrosh::completionText() . _DESC => 'Text displayed to the client after the successful invoice. Can contain html. ' .
         'In the text you can refer to variables @order_id, @order_number, @order_total, @order_currency, @order_fullname, @order_phone, @order_address',
-    ConfigFieldsHutkigrosh::completionText() . _DEFAULT => '<p>Bill #<strong>@order_number</strong> was successfully placed in ERIP</p>
+    ConfigFieldsHutkigrosh::completionText() . _DEFAULT => '<p>Bill #<strong>@order_number_or_id</strong> was successfully placed in ERIP</p>
 <p>You can pay it in cash, a plastic card and electronic money, in any bank, cash departments, ATMs, payment terminals, in the system of electronic money, through Internet banking, M-banking, online acquiring</p>',
 
     ConfigFieldsHutkigrosh::completionCssFile() => 'Completion page CSS file',
@@ -89,7 +89,7 @@ return array(
 <ol>
     <li>Select the ERIP payment tree</li>
     <li>Select a service: <strong>@erip_path</strong></li>
-    <li>Enter bill number <strong>@order_number</strong></li>
+    <li>Enter bill number <strong>@order_number_or_id</strong></li>
     <li>Verify information is correct</li>
     <li>Make a payment</li>
 </ol>',

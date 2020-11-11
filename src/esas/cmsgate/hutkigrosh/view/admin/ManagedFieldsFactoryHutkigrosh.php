@@ -56,6 +56,8 @@ class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::notificationSms())));
         $this->registerField(
+            (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::useOrderNumber())));
+        $this->registerField(
             (new ConfigFieldText(ConfigFieldsHutkigrosh::eripPath()))
                 ->setRequired(true)
                 ->setValidator(new ValidatorNotEmpty()));

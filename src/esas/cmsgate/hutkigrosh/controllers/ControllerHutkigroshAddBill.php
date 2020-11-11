@@ -43,7 +43,7 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             }
             $billNewRq = new HutkigroshBillNewRq();
             $billNewRq->setEripId($this->configWrapper->getEripId());
-            $billNewRq->setInvId($orderWrapper->getOrderNumber());
+            $billNewRq->setInvId($orderWrapper->getOrderNumberOrId());
             $billNewRq->setFullName($orderWrapper->getFullName());
             $billNewRq->setMobilePhone($orderWrapper->getMobilePhone());
             $billNewRq->setEmail($orderWrapper->getEmail());

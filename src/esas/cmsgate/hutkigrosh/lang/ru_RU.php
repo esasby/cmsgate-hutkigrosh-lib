@@ -44,7 +44,7 @@ return array(
     ConfigFieldsHutkigrosh::completionText() => 'Текст успешного выставления счета',
     ConfigFieldsHutkigrosh::completionText() . _DESC => 'Текст, отображаемый кленту после успешного выставления счета. Может содержать html. ' .
         'В тексте допустимо ссылаться на переменные @order_id, @order_number, @order_total, @order_currency, @order_fullname, @order_phone, @order_address',
-    ConfigFieldsHutkigrosh::completionText() . _DEFAULT => '<p>Счет №<strong>@order_number</strong> успешно выставлен в ЕРИП</p>
+    ConfigFieldsHutkigrosh::completionText() . _DEFAULT => '<p>Счет №<strong>@order_number_or_id</strong> успешно выставлен в ЕРИП</p>
 <p>Вы можете оплатить его наличными деньгами, пластиковой карточкой и электронными деньгами, в любом из отделений
     банков, кассах, банкоматах, платежных терминалах, в системе электронных денег, через Интернет-банкинг, М-банкинг,
     интернет-эквайринг</p>',
@@ -92,7 +92,7 @@ return array(
 <ol>
     <li>Выбрать дерево платежей ЕРИП</li>
     <li>Выбрать услугу: <strong>@erip_path</strong></li>
-    <li>Ввести номер счета: <strong>@order_number</strong></li>
+    <li>Ввести номер счета: <strong>@order_number_or_id</strong></li>
     <li>Проверить корректность информации</li>
     <li>Совершить платеж.</li>
 </ol>',
