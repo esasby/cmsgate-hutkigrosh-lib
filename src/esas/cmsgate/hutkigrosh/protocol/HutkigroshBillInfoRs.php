@@ -15,7 +15,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
 {
     private $billId;
     private $eripId;
-    private $invId;
+    private $orderId;
     private $fullName;
     private $mobilePhone;
     private $email;
@@ -60,19 +60,39 @@ class HutkigroshBillInfoRs extends HutkigroshRs
     }
 
     /**
+     * @deprecated использовать getOrderId
      * @return mixed
      */
     public function getInvId()
     {
-        return $this->invId;
+        return $this->getOrderId();
     }
 
     /**
+     * @deprecated использовать setOrderId
      * @param mixed $invId
      */
     public function setInvId($invId)
     {
-        $this->invId = trim($invId);
+        $this->setOrderId();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param mixed $orderId
+     * @return HutkigroshBillInfoRs
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
     }
 
     /**

@@ -293,7 +293,7 @@ class HutkigroshProtocol
             }
             $resp->setResponseCode($resArray['status']);
             $resp->setBillId($resArray["bill"]["billID"]);
-            $resp->setInvId($resArray["bill"]["invId"]);
+            $resp->setOrderId($resArray["bill"]["invId"]);
             $resp->setEripId($resArray["bill"]["eripId"]);
             $resp->setFullName($resArray["bill"]["fullName"]);
             $resp->setFullAddress($resArray["bill"]["fullAddress"]);
