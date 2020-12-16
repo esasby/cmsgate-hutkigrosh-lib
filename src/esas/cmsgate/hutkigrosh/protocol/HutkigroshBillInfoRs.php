@@ -74,7 +74,7 @@ class HutkigroshBillInfoRs extends HutkigroshRs
      */
     public function setInvId($invId)
     {
-        $this->setOrderId();
+        $this->setOrderId($invId);
     }
 
     /**
