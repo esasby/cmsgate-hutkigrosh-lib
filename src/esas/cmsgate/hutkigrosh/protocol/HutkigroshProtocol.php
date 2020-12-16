@@ -2,56 +2,34 @@
 
 namespace esas\cmsgate\hutkigrosh\protocol;
 
-use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\protocol\Amount;
+use esas\cmsgate\protocol\ProtocolCurl;
+use esas\cmsgate\protocol\RqMethod;
 use esas\cmsgate\protocol\RsType;
-use esas\cmsgate\Registry;
 use esas\cmsgate\utils\EncodingUtils;
-use esas\cmsgate\utils\Logger;
 use Exception;
+use SimpleXMLElement;
 use Throwable;
 
 /**
  * HootkiGrosh class
  */
-class HutkigroshProtocol
+class HutkigroshProtocol extends ProtocolCurl
 {
     private static $cookies_file;
-    private $base_url; // url api
-    private $ch; // curl object
     public $cookies_dir;
     // api url
     const API_URL = 'https://www.hutkigrosh.by/API/v1/'; // рабочий
     const API_URL_TEST = 'https://trial.hgrosh.by/API/v1/'; // тестовый
 
-    /**
-     * @var Logger
-     */
-    private $logger;
 
-    /**
-     * @var ConfigWrapperHutkigrosh
-     */
-    private $configWrapper;
-
-    /**
-     * @param ConfigWrapperHutkigrosh $configWrapper
-     * @throws Exception
-     */
     public function __construct($configWrapper)
     {
-        $this->logger = Logger::getLogger(HutkigroshProtocol::class);
-        $this->configWrapper = $configWrapper;
-        if ($this->configWrapper->isSandbox()) {
-            $this->base_url = self::API_URL_TEST;
-            $this->logger->info("Test mode is on");
-        } else {
-            $this->base_url = self::API_URL;
-        }
+        parent::__construct(self::API_URL, self::API_URL_TEST);
         if (!isset(self::$cookies_file)) {
             self::$cookies_file = 'cookies-' . time() . '.txt';
         }
-        $dir = $this->configWrapper->getCookiePath();
+        $dir = $this->configurationWrapper->getCookiePath();
         if (empty($dir)) {
             $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . "cookies";
         }
@@ -84,13 +62,13 @@ class HutkigroshProtocol
         $resp = new HutkigroshLoginRs();
         try {
             if ($loginRq == null)
-                $loginRq = new HutkigroshLoginRq($this->configWrapper->getHutkigroshLogin(), $this->configWrapper->getHutkigroshPassword());
+                $loginRq = new HutkigroshLoginRq($this->configurationWrapper->getHutkigroshLogin(), $this->configurationWrapper->getHutkigroshPassword());
             $this->logger->info("Logging in: host[" . $this->base_url . "],  username[" . $loginRq->getUsername() . "]");
             if (empty($loginRq->getUsername()) || empty($loginRq->getPassword())) {
                 throw new Exception("Ошибка конфигурации! Не задан login или password", HutkigroshRs::ERROR_CONFIG);
             }
             // формируем xml
-            $Credentials = new \SimpleXMLElement("<Credentials></Credentials>");
+            $Credentials = new SimpleXMLElement("<Credentials></Credentials>");
             $Credentials->addAttribute('xmlns', 'http://www.hutkigrosh.by/api');
             $Credentials->addChild('user', $loginRq->getUsername());
             $Credentials->addChild('pwd', $loginRq->getPassword());
@@ -116,7 +94,7 @@ class HutkigroshProtocol
     public function apiLogOut()
     {
         $this->logger->info("Logging out...");
-        $res = $this->requestPost('Security/LogOut');
+        $res = $this->requestPost('Security/LogOut', "", RsType::_STRING);
         // удалим файл с cookies
         $cookies_path = $this->cookies_dir . DIRECTORY_SEPARATOR . self::$cookies_file;
         if (is_file($cookies_path)) {
@@ -316,53 +294,6 @@ class HutkigroshProtocol
     }
 
     /**
-     * Подключение GET
-     *
-     * @param string $path
-     * @param string $data
-     * @param int $rsType
-     * @internal param RS_TYPE $rqType
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    private function requestGet($path, $data = '', $rsType = RsType::_ARRAY)
-    {
-        return $this->connect($path, $data, 'GET', $rsType);
-    }
-
-    /**
-     * Подключение POST
-     *
-     * @param string $path
-     * @param string $data
-     * @param int $rsType
-     * @internal param RS_TYPE $rqType
-     * @return bool
-     * @throws Exception
-     */
-    private function requestPost($path, $data = '', $rsType = RsType::_ARRAY)
-    {
-        return $this->connect($path, $data, 'POST', $rsType);
-    }
-
-    /**
-     * Подключение DELETE
-     *
-     * @param string $path
-     * @param string $data
-     * @param int $rsType
-     * @internal param RS_TYPE $rqType
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    private function requestDelete($path, $data = '', $rsType = RsType::_ARRAY)
-    {
-        return $this->connect($path, $data, 'DELETE', $rsType);
-    }
-
-    /**
      * Подключение GET, POST или DELETE
      *
      * @param string $path
@@ -373,73 +304,50 @@ class HutkigroshProtocol
      * @return mixed
      * @throws Exception
      */
-    private function connect($path, $data = '', $request = 'GET', $rsType)
+    protected function send($path, $data, $rqMethod, $rsType)
     {
-        $headers = array('Content-Type: application/xml', 'Content-Length: ' . strlen($data));
-
         $cookies_path = $this->cookies_dir . DIRECTORY_SEPARATOR . self::$cookies_file;
         // если файла еще нет, то создадим его при залогинивании и будем затем использовать при дальнейших запросах
         if (!is_file($cookies_path) && !is_writable($this->cookies_dir)) {
             throw new Exception('Cookie file[' . $cookies_path . '] is not writable! Check permissions for directory[' . $this->cookies_dir . ']');
         }
-
         try {
-            $this->ch = curl_init();
-            $url = $this->base_url . $path;
+            $headers = array(
+                'Content-Type: application/xml',
+                'Content-Length: ' . strlen($data));
+            $url = $this->connectionUrl . $path;
+            $this->defaultCurlInit($url);
             curl_setopt($this->ch, CURLOPT_COOKIEJAR, $cookies_path);
             curl_setopt($this->ch, CURLOPT_COOKIEFILE, $cookies_path);
-            curl_setopt($this->ch, CURLOPT_URL, $url);
             curl_setopt($this->ch, CURLOPT_HEADER, false); // включение заголовков в выводе
-            curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
-            curl_setopt($this->ch, CURLOPT_VERBOSE, true); // вывод доп. информации в STDERR
             curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false); // не проверять сертификат узла сети
             curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false); // проверка существования общего имени в сертификате SSL
-            curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); // возврат результата вместо вывода на экран
-            curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers); // Массив устанавливаемых HTTP-заголовков
-            if ($request == 'POST') {
-                curl_setopt($this->ch, CURLOPT_POST, true);
-                curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
+            switch ($rqMethod) {
+//                case RqMethod::_GET:
+//                    $headers[] = 'Content-Length: ' . strlen($data);
+//                    break;
+                case RqMethod::_POST:
+                    curl_setopt($this->ch, CURLOPT_POST, true);
+                    curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
+                    break;
+                case RqMethod::_PUT:
+                    curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                    curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
+                    break;
+                case RqMethod::_DELETE:
+                    curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                    break;
             }
-            if ($request == 'DELETE') {
-                curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-            }
-            // для безопасности прячем пароли из лога
-            $this->logger->info('Sending ' . $request . ' request[' . preg_replace('/(<pwd>).*(<\/pwd>)/', '$1********$2', $data) . "] to url[" . $url . "]");
-            $response = curl_exec($this->ch);
-            $this->logger->info('Got response[' . $response . "]");
-            if (curl_errno($this->ch)) {
-                throw new Exception(curl_error($this->ch), curl_errno($this->ch));
-            }
+            if (isset($headers) && is_array($headers))
+                curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers); // Массив устанавливаемых HTTP-заголовков
+            $logStr = $data;
+            if (is_array($logStr))
+                $logStr = json_encode($logStr);
+            $this->logger->info('Sending ' . RqMethod::toString($rqMethod) . ' request[' . preg_replace('/(<pwd>).*(<\/pwd>)/', '$1********$2', $logStr) . "] to url[" . $url . "]");
+            $response = $this->execCurlAndLog();
         } finally {
             curl_close($this->ch);
         }
-        switch ($rsType) {
-            case RsType::_STRING:
-                return $response;
-            case RsType::_XML:
-                return simplexml_load_string($response);
-            case RsType::_ARRAY:
-                return $this->responseToArray($response);
-            default:
-                throw new Exception("Wrong rsType.");
-        }
-
-    }
-
-    /**
-     * Преобразуем XML в массив
-     *
-     * @return mixed
-     */
-    private function responseToArray($response)
-    {
-        $response = trim($response);
-        $array = array();
-        // проверим, что это xml
-        if (preg_match('/^<(.*)>$/', $response)) {
-            $xml = simplexml_load_string($response);
-            $array = json_decode(json_encode($xml), true);
-        }
-        return $array;
+        return $this->convertRs($response, $rsType);
     }
 }

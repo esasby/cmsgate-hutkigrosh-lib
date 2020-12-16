@@ -63,7 +63,7 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             }
             $resp = $hg->apiBillNew($billNewRq);
             $hg->apiLogOut();
-            if ($resp->hasError()) {
+            if ($resp->hasError() || empty($resp->getBillId())) {
                 $this->logger->error($loggerMainString . "Bill was not added. Setting status[" . $this->configWrapper->getBillStatusFailed() . "]...");
                 $this->onFailed($orderWrapper, $resp);
                 throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());  
