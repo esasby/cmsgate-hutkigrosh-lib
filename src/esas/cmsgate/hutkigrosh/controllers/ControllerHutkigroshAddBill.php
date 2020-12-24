@@ -27,8 +27,10 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
     public function process($orderWrapper)
     {
         try {
-            if (empty($orderWrapper)) {
-                throw new Exception("Incorrect method call! orderWrapper is null");
+            if (is_int($orderWrapper)) //если передан orderId
+                $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
+            if (empty($orderWrapper) || empty($orderWrapper->getOrderNumber())) {
+                throw new Exception("Incorrect method call! orderWrapper is null or not well initialized");
             }
             if (!empty($orderWrapper->getExtId())) {
                 throw new Exception("Order is already processed");

@@ -11,20 +11,22 @@ namespace esas\cmsgate\hutkigrosh\controllers;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
+use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
 
 class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
 {
     /**
-     * @param $orderId
+     * @param int|OrderWrapper $orderWrapper
      * @return CompletionPanelHutkigrosh
      * @throws Throwable
      */
-    public function process($orderId)
+    public function process($orderWrapper)
     {
         try {
-            $orderWrapper = $this->registry->getOrderWrapper($orderId);
+            if (is_int($orderWrapper)) //если передан orderId
+                $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
             $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
