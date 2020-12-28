@@ -24,7 +24,7 @@ class ControllerHutkigroshCompletionPageWebpay extends ControllerHutkigrosh
     public function process($orderWrapper)
     {
         try {
-            if (is_int($orderWrapper)) //если передан orderId
+            if (is_numeric($orderWrapper)) //если передан orderId
                 $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
