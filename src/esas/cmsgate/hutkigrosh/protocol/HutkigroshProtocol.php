@@ -7,6 +7,7 @@ use esas\cmsgate\protocol\ProtocolCurl;
 use esas\cmsgate\protocol\RqMethod;
 use esas\cmsgate\protocol\RsType;
 use esas\cmsgate\utils\EncodingUtils;
+use esas\cmsgate\utils\NumberUtils;
 use Exception;
 use SimpleXMLElement;
 use Throwable;
@@ -63,7 +64,7 @@ class HutkigroshProtocol extends ProtocolCurl
         try {
             if ($loginRq == null)
                 $loginRq = new HutkigroshLoginRq($this->configurationWrapper->getHutkigroshLogin(), $this->configurationWrapper->getHutkigroshPassword());
-            $this->logger->info("Logging in: host[" . $this->base_url . "],  username[" . $loginRq->getUsername() . "]");
+            $this->logger->info("Logging in: host[" . $this->connectionUrl . "],  username[" . $loginRq->getUsername() . "]");
             if (empty($loginRq->getUsername()) || empty($loginRq->getPassword())) {
                 throw new Exception("Ошибка конфигурации! Не задан login или password", HutkigroshRs::ERROR_CONFIG);
             }
@@ -143,8 +144,14 @@ class HutkigroshProtocol extends ProtocolCurl
                     if (!empty($pr->getInvId())) {
                         $ProductInfo->addChild('invItemId', $pr->getInvId()); // опционально
                     }
-                    $ProductInfo->addChild('desc', htmlentities(EncodingUtils::convertToUtf8($pr->getName()), ENT_XML1));
-                    $ProductInfo->addChild('count', $pr->getCount());
+                    $desc = htmlentities(EncodingUtils::convertToUtf8($pr->getName()), ENT_XML1);
+                    $count = $pr->getCount();
+                    if (NumberUtils::hasDecimalPart($count)) {
+                        $desc = $count . " x " . $desc;
+                        $count = 1;
+                    }
+                    $ProductInfo->addChild('desc', $desc);
+                    $ProductInfo->addChild('count', $count);
                     if (!empty($pr->getUnitPrice())) {
                         $ProductInfo->addChild('amt', $pr->getUnitPrice()); // опционально
                     }
