@@ -66,11 +66,11 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             $resp = $hg->apiBillNew($billNewRq);
             $hg->apiLogOut();
             if ($resp->hasError() || empty($resp->getBillId())) {
-                $this->logger->error($loggerMainString . "Bill was not added. Setting status[" . $this->configWrapper->getBillStatusFailed() . "]...");
+                $this->logger->error($loggerMainString . "Bill was not added...");
                 $this->onFailed($orderWrapper, $resp);
                 throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());  
             } else {
-                $this->logger->info($loggerMainString . "Bill[" . $resp->getBillId() . "] was successfully added. Updating status[" . $this->configWrapper->getBillStatusPending() . "]...");
+                $this->logger->info($loggerMainString . "Bill[" . $resp->getBillId() . "] was successfully added");
                 $this->onSuccess($orderWrapper, $resp);
             }
             return $resp;
@@ -94,7 +94,7 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
     public function onSuccess(OrderWrapper $orderWrapper, HutkigroshBillNewRs $resp)
     {
         $orderWrapper->saveExtId($resp->getBillId());
-        $orderWrapper->updateStatus($this->configWrapper->getBillStatusPending());
+        $orderWrapper->updateStatusWithLogging($this->configWrapper->getBillStatusPending());
     }
 
     /**
@@ -104,6 +104,6 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
      */
     public function onFailed(OrderWrapper $orderWrapper, HutkigroshBillNewRs $resp)
     {
-        $orderWrapper->updateStatus($this->configWrapper->getBillStatusFailed());
+        $orderWrapper->updateStatusWithLogging($this->configWrapper->getBillStatusFailed());
     }
 }
