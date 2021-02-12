@@ -149,7 +149,8 @@ class HutkigroshProtocol extends ProtocolCurl
                     if (NumberUtils::hasDecimalPart($count)) {
                         $desc = $count . " x " . $desc;
                         $count = 1;
-                    }
+                    } else
+                        $count = intval($count);
                     $ProductInfo->addChild('desc', $desc);
                     $ProductInfo->addChild('count', $count);
                     if (!empty($pr->getUnitPrice())) {
