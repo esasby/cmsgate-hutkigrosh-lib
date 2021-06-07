@@ -6,7 +6,7 @@
  * Time: 11:11
  */
 
-namespace esas\cmsgate\messenger;
+namespace esas\cmsgate\hutkigrosh\messenger;
 
 
 class MessagesHutkigrosh
