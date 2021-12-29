@@ -8,6 +8,7 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
+use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\protocol\Amount;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRs;
@@ -67,11 +68,11 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             $hg->apiLogOut();
             if ($resp->hasError() || empty($resp->getBillId())) {
                 $this->logger->error($loggerMainString . "Bill was not added...");
-                $this->onFailed($orderWrapper, $resp);
-                throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());  
+                RegistryHutkigrosh::getRegistry()->getHooks()->onAddBillFailed($orderWrapper, $resp);
+                throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());
             } else {
                 $this->logger->info($loggerMainString . "Bill[" . $resp->getBillId() . "] was successfully added");
-                $this->onSuccess($orderWrapper, $resp);
+                RegistryHutkigrosh::getRegistry()->getHooks()->onAddBillSuccess($orderWrapper, $resp);
             }
             return $resp;
         } catch (Throwable $e) {
@@ -81,29 +82,5 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
             throw $e;
         }
-    }
-
-    /**
-     * Изменяет статус заказа при успешном высталении счета
-     * Вынесено в отдельный метод, для возможности owerrid-а
-     * (например, кроме статуса заказа надо еще обновить статус транзакции)
-     * @param OrderWrapper $orderWrapper
-     * @param HutkigroshBillNewRs $resp
-     * @throws Throwable
-     */
-    public function onSuccess(OrderWrapper $orderWrapper, HutkigroshBillNewRs $resp)
-    {
-        $orderWrapper->saveExtId($resp->getBillId());
-        $orderWrapper->updateStatusWithLogging($this->configWrapper->getBillStatusPending());
-    }
-
-    /**
-     * @param OrderWrapper $orderWrapper
-     * @param HutkigroshBillNewRs $resp
-     * @throws Throwable
-     */
-    public function onFailed(OrderWrapper $orderWrapper, HutkigroshBillNewRs $resp)
-    {
-        $orderWrapper->updateStatusWithLogging($this->configWrapper->getBillStatusFailed());
     }
 }

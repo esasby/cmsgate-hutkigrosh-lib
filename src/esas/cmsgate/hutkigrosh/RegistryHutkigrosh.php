@@ -56,4 +56,13 @@ abstract class RegistryHutkigrosh extends Registry
      */
     abstract function getUrlWebpay($orderWrapper);
 
+    /**
+     * @return HooksHutkigrosh
+     */
+    public function getHooks()
+    {
+        return parent::getHooks();
+    }
+
+
 }

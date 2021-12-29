@@ -67,7 +67,7 @@ class CompletionPanelHutkigrosh
         $this->orderWrapper = $orderWrapper;
     }
 
-    public function render()
+    public function __toString()
     {
         $completionPanel = element::content(
             element::div(
@@ -81,7 +81,13 @@ class CompletionPanelHutkigrosh
                 $this->addTabs()),
             $this->addCss()
         );
-        echo $completionPanel;
+        return $completionPanel->__toString();
+    }
+
+
+    public function render()
+    {
+        echo $this->__toString();
     }
 
     public function renderWebpayOnly()

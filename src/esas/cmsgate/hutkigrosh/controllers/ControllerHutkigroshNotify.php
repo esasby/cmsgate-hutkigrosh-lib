@@ -6,7 +6,6 @@ use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillInfoRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillInfoRs;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
-use esas\cmsgate\Registry;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\utils\StringUtils;
 use esas\cmsgate\wrappers\OrderWrapper;
@@ -72,13 +71,13 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
             }
             if ($this->billInfoRs->isStatusPayed()) {
                 $this->logger->info($loggerMainString . "Remote order status is 'Payed'");
-                $this->onStatusPayed();
+                RegistryHutkigrosh::getRegistry()->getHooks()->onNotifyStatusPayed($this->localOrderWrapper, $this->billInfoRs);
             } elseif ($this->billInfoRs->isStatusCanceled()) {
                 $this->logger->info($loggerMainString . "Remote order status is 'Canceled'");
-                $this->onStatusCanceled();
+                RegistryHutkigrosh::getRegistry()->getHooks()->onNotifyStatusCanceled($this->localOrderWrapper, $this->billInfoRs);
             } elseif ($this->billInfoRs->isStatusPending()) {
                 $this->logger->info($loggerMainString . "Remote order status is 'Pending'");
-                $this->onStatusPending();
+                RegistryHutkigrosh::getRegistry()->getHooks()->onNotifyStatusPending($this->localOrderWrapper, $this->billInfoRs);
             }
             $this->logger->info($loggerMainString . "Controller ended");
         } catch (Throwable $e) {
@@ -88,41 +87,5 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
         } finally {
             return $this->billInfoRs;
         }
-    }
-
-    /**
-     * @param $status
-     * @throws Throwable
-     */
-    public function updateStatus($status)
-    {
-        if (isset($status) && $this->localOrderWrapper->getStatus() != $status) {
-            $this->logger->info("Setting status[" . $status . "] for order[" . $this->billInfoRs->getInvId() . "]...");
-            $this->localOrderWrapper->updateStatus($status);
-        }
-    }
-
-    /**
-     * @throws Throwable
-     */
-    public function onStatusPayed()
-    {
-        $this->updateStatus($this->configWrapper->getBillStatusPayed());
-    }
-
-    /**
-     * @throws Throwable
-     */
-    public function onStatusCanceled()
-    {
-        $this->updateStatus($this->configWrapper->getBillStatusCanceled());
-    }
-
-    /**
-     * @throws Throwable
-     */
-    public function onStatusPending()
-    {
-        $this->updateStatus($this->configWrapper->getBillStatusPending());
     }
 }
