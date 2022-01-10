@@ -26,8 +26,8 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
     {
         try {
             if (is_numeric($orderWrapper)) //если передан orderId
-                $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
-            $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
+                $orderWrapper = $this->registry->getOrderWrapperByOrderNumberOrId($orderWrapper);
+            $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
             $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
             if ($this->configWrapper->isAlfaclickSectionEnabled()) {

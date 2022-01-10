@@ -66,17 +66,17 @@ return array(
     ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DESC => 'Description of the payment method that will be shown to the client at the time of payment',
     ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DEFAULT => 'Payment by card (VISA, Maestro, Belcard) view Webpay',
 
-    ConfigFieldsHutkigrosh::billStatusPending() => 'Bill status pending',
-    ConfigFieldsHutkigrosh::billStatusPending() . _DESC => 'Mapped status for pending bills',
+    ConfigFieldsHutkigrosh::orderStatusPending() => 'Bill status pending',
+    ConfigFieldsHutkigrosh::orderStatusPending() . _DESC => 'Mapped status for pending bills',
 
-    ConfigFieldsHutkigrosh::billStatusPayed() => 'Bill status payed',
-    ConfigFieldsHutkigrosh::billStatusPayed() . _DESC => 'Mapped status for payed bills',
+    ConfigFieldsHutkigrosh::orderStatusPayed() => 'Bill status payed',
+    ConfigFieldsHutkigrosh::orderStatusPayed() . _DESC => 'Mapped status for payed bills',
 
-    ConfigFieldsHutkigrosh::billStatusFailed() => 'Bill status failed',
-    ConfigFieldsHutkigrosh::billStatusFailed() . _DESC => 'Mapped status for failed bills',
+    ConfigFieldsHutkigrosh::orderStatusFailed() => 'Bill status failed',
+    ConfigFieldsHutkigrosh::orderStatusFailed() . _DESC => 'Mapped status for failed bills',
 
-    ConfigFieldsHutkigrosh::billStatusCanceled() => 'Bill status canceled',
-    ConfigFieldsHutkigrosh::billStatusCanceled() . _DESC => 'Mapped status for canceled bills',
+    ConfigFieldsHutkigrosh::orderStatusCanceled() => 'Bill status canceled',
+    ConfigFieldsHutkigrosh::orderStatusCanceled() . _DESC => 'Mapped status for canceled bills',
 
     ConfigFieldsHutkigrosh::dueInterval() => 'Bill due interval (days)',
     ConfigFieldsHutkigrosh::dueInterval() . _DESC => 'How many days new bill will be available for payment',

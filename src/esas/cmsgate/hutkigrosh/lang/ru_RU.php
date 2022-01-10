@@ -69,17 +69,17 @@ return array(
     ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DESC => 'Описание, отображаемое клиенту, при выборе способа оплаты',
     ConfigFieldsHutkigrosh::paymentMethodDetailsWebpay() . _DEFAULT => 'Оплата заказа картой VISA/MasterCard/Белкарт через сервис WebPay',
 
-    ConfigFieldsHutkigrosh::billStatusPending() => 'Статус при выставлении счета',
-    ConfigFieldsHutkigrosh::billStatusPending() . _DESC => 'Какой статус выставить заказу при успешном выставлении счета в ЕРИП (идентификатор существующего статуса)',
+    ConfigFieldsHutkigrosh::orderStatusPending() => 'Статус при выставлении счета',
+    ConfigFieldsHutkigrosh::orderStatusPending() . _DESC => 'Какой статус выставить заказу при успешном выставлении счета в ЕРИП (идентификатор существующего статуса)',
 
-    ConfigFieldsHutkigrosh::billStatusPayed() => 'Статус при успешной оплате счета',
-    ConfigFieldsHutkigrosh::billStatusPayed() . _DESC => 'Какой статус выставить заказу при успешной оплате выставленного счета (идентификатор существующего статуса)',
+    ConfigFieldsHutkigrosh::orderStatusPayed() => 'Статус при успешной оплате счета',
+    ConfigFieldsHutkigrosh::orderStatusPayed() . _DESC => 'Какой статус выставить заказу при успешной оплате выставленного счета (идентификатор существующего статуса)',
 
-    ConfigFieldsHutkigrosh::billStatusFailed() => 'Статус при ошибке оплаты счета',
-    ConfigFieldsHutkigrosh::billStatusFailed() . _DESC => 'Какой статус выставить заказу при ошибке выставленния счета (идентификатор существующего статуса)',
+    ConfigFieldsHutkigrosh::orderStatusFailed() => 'Статус при ошибке оплаты счета',
+    ConfigFieldsHutkigrosh::orderStatusFailed() . _DESC => 'Какой статус выставить заказу при ошибке выставленния счета (идентификатор существующего статуса)',
 
-    ConfigFieldsHutkigrosh::billStatusCanceled() => 'Статус при отмене оплаты счета',
-    ConfigFieldsHutkigrosh::billStatusCanceled() . _DESC => 'Какой статус выставить заказу при отмене оплаты счета (идентификатор существующего статуса)',
+    ConfigFieldsHutkigrosh::orderStatusCanceled() => 'Статус при отмене оплаты счета',
+    ConfigFieldsHutkigrosh::orderStatusCanceled() . _DESC => 'Какой статус выставить заказу при отмене оплаты счета (идентификатор существующего статуса)',
 
     ConfigFieldsHutkigrosh::dueInterval() => 'Срок действия счета (дней)',
     ConfigFieldsHutkigrosh::dueInterval() . _DESC => 'Как долго счет, будет доступен в ЕРИП для оплаты',

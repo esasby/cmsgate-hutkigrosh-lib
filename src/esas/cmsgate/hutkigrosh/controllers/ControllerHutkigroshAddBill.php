@@ -30,13 +30,13 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
         try {
             if (is_numeric($orderWrapper)) //если передан orderId
                 $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
-            if (empty($orderWrapper) || empty($orderWrapper->getOrderNumber())) {
+            if (empty($orderWrapper) || empty($orderWrapper->getOrderNumberOrId())) {
                 throw new Exception("Incorrect method call! orderWrapper is null or not well initialized");
             }
             if (!empty($orderWrapper->getExtId())) {
                 throw new Exception("Order is already processed");
             }
-            $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
+            $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
             $hg = new HutkigroshProtocol($this->configWrapper);
             $resp = $hg->apiLogIn();

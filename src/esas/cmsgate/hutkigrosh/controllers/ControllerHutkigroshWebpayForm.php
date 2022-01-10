@@ -28,7 +28,7 @@ class ControllerHutkigroshWebpayForm extends ControllerHutkigrosh
     public function process($orderWrapper)
     {
         try {
-            $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
+            $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
             $hg = new HutkigroshProtocol($this->configWrapper);
             $resp = $hg->apiLogIn();

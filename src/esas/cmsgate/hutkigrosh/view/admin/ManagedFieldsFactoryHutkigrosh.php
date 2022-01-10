@@ -67,10 +67,10 @@ class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
                 ->setMax(10)
                 ->setValidator(new ValidatorInteger(1, 10))
                 ->setRequired(true));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::billStatusPending()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::billStatusPayed()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::billStatusFailed()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::billStatusCanceled()));
+        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPending()));
+        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPayed()));
+        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusFailed()));
+        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusCanceled()));
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::instructionsSection())));
         $this->registerField(
