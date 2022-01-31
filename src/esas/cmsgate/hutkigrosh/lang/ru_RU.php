@@ -3,7 +3,7 @@
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
-use esas\cmsgate\view\ClientViewFields;
+use esas\cmsgate\view\client\ClientViewFields;
 
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Название магазина',
