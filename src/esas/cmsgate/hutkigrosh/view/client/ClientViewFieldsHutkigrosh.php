@@ -30,4 +30,9 @@ class ClientViewFieldsHutkigrosh
     const WEBPAY_MSG_SUCCESS = 'hutkigrosh_webpay_msg_success';
     const WEBPAY_MSG_UNSUCCESS = 'hutkigrosh_webpay_msg_unsuccess';
     const WEBPAY_MSG_UNAVAILABLE = 'hutkigrosh_webpay_msg_unavailable';
+    const HUTKIGROSH_ABOUT_FULL_NAME = 'hutkigrosh_about_full_name';
+    const HUTKIGROSH_ABOUT_REGISTRATION_DATA = 'hutkigrosh_about_registration_data';
+    const HUTKIGROSH_ADDRESS_POST = 'hutkigrosh_address_post';
+    const HUTKIGROSH_ADDRESS_LEGAL = 'hutkigrosh_address_legal';
+
 }

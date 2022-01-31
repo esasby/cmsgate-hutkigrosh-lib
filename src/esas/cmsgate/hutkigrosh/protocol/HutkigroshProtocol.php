@@ -133,7 +133,7 @@ class HutkigroshProtocol extends ProtocolCurl
             if (!empty($billNewRq->getFullAddress())) {
                 $Bill->addChild('fullAddress', EncodingUtils::convertToUtf8($billNewRq->getFullAddress())); // опционально
             }
-            $Bill->addChild('amt', (float)$billNewRq->getAmount()->getValue());
+            $Bill->addChild('amt', NumberUtils::formatDecimalWithPoint($billNewRq->getAmount()->getValue()));
             $Bill->addChild('curr', $billNewRq->getAmount()->getCurrency());
             $Bill->addChild('statusEnum', 'NotSet');
             // Список товаров/услуг
@@ -154,7 +154,7 @@ class HutkigroshProtocol extends ProtocolCurl
                     $ProductInfo->addChild('desc', $desc);
                     $ProductInfo->addChild('count', $count);
                     if (!empty($pr->getUnitPrice())) {
-                        $ProductInfo->addChild('amt', $pr->getUnitPrice()); // опционально
+                        $ProductInfo->addChild('amt', NumberUtils::formatDecimalWithPoint($pr->getUnitPrice())); // опционально
                     }
                 }
             }

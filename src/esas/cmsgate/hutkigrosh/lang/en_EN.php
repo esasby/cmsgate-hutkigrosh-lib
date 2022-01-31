@@ -3,6 +3,7 @@
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
+use esas\cmsgate\view\ClientViewFields;
 
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Shop name',
@@ -115,4 +116,12 @@ return array(
 
     AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'Hutkigrosh',
     AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => 'Payment via ERIP',
+
+    //todo translate
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ABOUT_REGISTRATION_DATA => 'Общество с ограниченной ответственностью "Электронные системы и сервисы" (www.esas.by)',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ABOUT_FULL_NAME => 'Свидетельство о гос. регистрации с регистрационным номером 191358568 от 26.08.2010, выданное Минским горисполкомом. (УНП: 191358568)',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_LEGAL => 'Legal address: 220073, г. Минск, ул. Скрыганова, 6-316',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_POST => 'Post address: ул. Немига, 40, подъезд 1, оф. 501 г. Минск, 220004 Беларусь.',
+
+    ClientViewFields::COMPLETION_PAGE_TITLE => 'Payment via ERIP'
 );

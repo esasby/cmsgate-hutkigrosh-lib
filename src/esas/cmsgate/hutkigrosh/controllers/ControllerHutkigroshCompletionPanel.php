@@ -8,13 +8,14 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
+use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
 
-class ControllerHutkigroshCompletionPageWebpay extends ControllerHutkigrosh
+class ControllerHutkigroshCompletionPanel extends ControllerHutkigrosh
 {
     /**
      * @param int|OrderWrapper $orderWrapper
@@ -25,16 +26,20 @@ class ControllerHutkigroshCompletionPageWebpay extends ControllerHutkigrosh
     {
         try {
             if (is_numeric($orderWrapper)) //если передан orderId
-                $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
-            $loggerMainString = "Order[" . $orderWrapper->getOrderNumber() . "]: ";
+                $orderWrapper = $this->registry->getOrderWrapperByOrderNumberOrId($orderWrapper);
+            $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
             $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
-            $completionPanel->setAlfaclickUrl(false);
-            $controller = new ControllerHutkigroshWebpayForm();
-            $webpayResp = $controller->process($orderWrapper);
-            $completionPanel->setWebpayForm($webpayResp->getHtmlForm());
-            if (array_key_exists(RequestParamsHutkigrosh::WEBPAY_STATUS, $_REQUEST))
-                $completionPanel->setWebpayStatus($_REQUEST[RequestParamsHutkigrosh::WEBPAY_STATUS]);
+            if ($this->configWrapper->isAlfaclickSectionEnabled()) {
+                $completionPanel->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderWrapper));
+            }
+            if ($this->configWrapper->isWebpaySectionEnabled()) {
+                $controller = new ControllerHutkigroshWebpayForm();
+                $webpayResp = $controller->process($orderWrapper);
+                $completionPanel->setWebpayForm($webpayResp->getHtmlForm());
+                if (array_key_exists(RequestParamsHutkigrosh::WEBPAY_STATUS, $_REQUEST))
+                    $completionPanel->setWebpayStatus($_REQUEST[RequestParamsHutkigrosh::WEBPAY_STATUS]);
+            }
             return $completionPanel;
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "Controller exception! ", $e);

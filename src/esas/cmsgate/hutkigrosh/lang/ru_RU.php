@@ -3,6 +3,7 @@
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\view\admin\AdminViewFields;
+use esas\cmsgate\view\ClientViewFields;
 
 return array(
     ConfigFieldsHutkigrosh::shopName() => 'Название магазина',
@@ -117,4 +118,11 @@ style="color: #8c2003;"><span>здесь</span></a></p>',
 
     AdminViewFields::ADMIN_PAYMENT_METHOD_NAME => 'ХуткiГрош',
     AdminViewFields::ADMIN_PAYMENT_METHOD_DESCRIPTION => '«Хуткi Грош»™ — многофункциональный сервис по подключению к ЕРИП (cистеме платежей АИС «Расчет») для расчета и приема платежей за товары и услуги по всей Беларуси. «Хуткi Грош»™ — один из крупнейших агрегаторов оплат НКФО "ЕРИП".',
+
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ABOUT_REGISTRATION_DATA => 'Общество с ограниченной ответственностью "Электронные системы и сервисы" (www.esas.by)',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ABOUT_FULL_NAME => 'Свидетельство о гос. регистрации с регистрационным номером 191358568 от 26.08.2010, выданное Минским горисполкомом. (УНП: 191358568)',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_LEGAL => 'Юридический адрес: 220073, г. Минск, ул. Скрыганова, 6-316',
+    ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_POST => 'Почтовый адрес: ул. Немига, 40, подъезд 1, оф. 501 г. Минск, 220004 Беларусь.',
+
+    ClientViewFields::COMPLETION_PAGE_TITLE => 'Оплата заказ в ЕРИП'
 );

@@ -8,32 +8,34 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
-use esas\cmsgate\hutkigrosh\view\client\CompletionPageHutkigrosh;
+use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
+use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
 
-class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
+class ControllerHutkigroshCompletionPanelWebpay extends ControllerHutkigrosh
 {
     /**
      * @param int|OrderWrapper $orderWrapper
-     * @return CompletionPageHutkigrosh
+     * @return CompletionPanelHutkigrosh
      * @throws Throwable
      */
     public function process($orderWrapper)
     {
         try {
             if (is_numeric($orderWrapper)) //если передан orderId
-                $orderWrapper = $this->registry->getOrderWrapperByOrderNumberOrId($orderWrapper);
+                $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-
-            $controller = new ControllerHutkigroshCompletionPanel();
-            $completionPanel = $controller->process($orderWrapper);
-            $completionPanel = $completionPanel->__toString();
-
-            $completionPage = $this->registry->getCompletionPage($orderWrapper, $completionPanel);
-            return $completionPage;
+            $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
+            $completionPanel->setAlfaclickUrl(false);
+            $controller = new ControllerHutkigroshWebpayForm();
+            $webpayResp = $controller->process($orderWrapper);
+            $completionPanel->setWebpayForm($webpayResp->getHtmlForm());
+            if (array_key_exists(RequestParamsHutkigrosh::WEBPAY_STATUS, $_REQUEST))
+                $completionPanel->setWebpayStatus($_REQUEST[RequestParamsHutkigrosh::WEBPAY_STATUS]);
+            return $completionPanel;
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
             throw $e;
