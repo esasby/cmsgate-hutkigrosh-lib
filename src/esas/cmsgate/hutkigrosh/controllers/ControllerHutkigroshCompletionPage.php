@@ -9,6 +9,7 @@
 namespace esas\cmsgate\hutkigrosh\controllers;
 
 use esas\cmsgate\hutkigrosh\view\client\CompletionPageHutkigrosh;
+use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
@@ -36,9 +37,11 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
             return $completionPage;
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
+            Registry::getRegistry()->getMessenger()->addErrorMessage($e->getMessage());
             throw $e;
         } catch (Exception $e) { // для совместимости с php 5
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
+            Registry::getRegistry()->getMessenger()->addErrorMessage($e->getMessage());
             throw $e;
         }
     }

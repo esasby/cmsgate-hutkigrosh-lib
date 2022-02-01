@@ -14,6 +14,7 @@ use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRs;
 use esas\cmsgate\hutkigrosh\protocol\BillProduct;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
+use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
@@ -77,9 +78,11 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             return $resp;
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
+            Registry::getRegistry()->getMessenger()->addErrorMessage($e->getMessage());
             throw $e;
         } catch (Exception $e) { // для совместимости с php 5
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
+            Registry::getRegistry()->getMessenger()->addErrorMessage($e->getMessage());
             throw $e;
         }
     }

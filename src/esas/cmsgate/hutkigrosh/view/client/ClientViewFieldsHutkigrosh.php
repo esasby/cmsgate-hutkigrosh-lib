@@ -8,12 +8,14 @@
 
 namespace esas\cmsgate\hutkigrosh\view\client;
 
+use esas\cmsgate\view\client\ClientViewFields;
+
 /**
  * Перечисление полей, доступных на странице успешного выставления счета
  * Class ViewFields
  * @package esas\hutkigrosh\view
  */
-class ClientViewFieldsHutkigrosh
+class ClientViewFieldsHutkigrosh extends ClientViewFields
 {
     const INSTRUCTIONS_TAB_LABEL = 'hutkigrosh_instructions_tab_label';
     const INSTRUCTIONS = 'hutkigrosh_instructions_text';
@@ -34,5 +36,7 @@ class ClientViewFieldsHutkigrosh
     const HUTKIGROSH_ABOUT_REGISTRATION_DATA = 'hutkigrosh_about_registration_data';
     const HUTKIGROSH_ADDRESS_POST = 'hutkigrosh_address_post';
     const HUTKIGROSH_ADDRESS_LEGAL = 'hutkigrosh_address_legal';
+    const COMPLETION_PAGE_HEADER_HUTKIGROSH = 'completion_page_header_hutkigrosh';
+    const COMPLETION_PAGE_HEADER_DETAILS_HUTKIGROSH = 'completion_page_header_details_hutkigrosh';
 
 }
