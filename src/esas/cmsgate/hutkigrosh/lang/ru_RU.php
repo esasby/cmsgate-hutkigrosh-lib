@@ -19,7 +19,7 @@ return array(
     ConfigFieldsHutkigrosh::eripId() . _DESC => 'Уникальный идентификатор ЕРИП',
 
     ConfigFieldsHutkigrosh::eripTreeId() => 'Код услуги',
-    ConfigFieldsHutkigrosh::eripTreeId() . _DESC => 'Код услуги в деревер ЕРИП. Используется при генерации QR-кода',
+    ConfigFieldsHutkigrosh::eripTreeId() . _DESC => 'Код услуги в дереве ЕРИП. Используется при генерации QR-кода',
 
     ConfigFieldsHutkigrosh::sandbox() => 'Sandbox',
     ConfigFieldsHutkigrosh::sandbox() . _DESC => 'Режим *песочницы*. Если включен, то все счета буду выставляться в тестовой системе trial.hgrosh.by',

@@ -34,7 +34,7 @@ return array(
     ConfigFieldsHutkigrosh::alfaclickSection() . _DESC => 'If *true* then customer will get *Add to Alfaclick* button on success page',
 
     ConfigFieldsHutkigrosh::webpaySection() => 'Section Webpay',
-    ConfigFieldsHutkigrosh::webpaySection() . _DESC => 'If *true* then customer will get *Pay with car* button on success page',
+    ConfigFieldsHutkigrosh::webpaySection() . _DESC => 'If *true* then customer will get *Pay with card* button on success page',
 
     ConfigFieldsHutkigrosh::notificationEmail() => 'Email notification',
     ConfigFieldsHutkigrosh::notificationEmail() . _DESC => 'If *true* then Hutkigrosh gateway will sent email notification to customer',
@@ -83,7 +83,7 @@ return array(
     ConfigFieldsHutkigrosh::dueInterval() . _DESC => 'How many days new bill will be available for payment',
 
     ConfigFieldsHutkigrosh::eripPath() => 'ERIP PATH',
-    ConfigFieldsHutkigrosh::eripPath() . _DESC => 'По какому пути клиент должен искать выставленный счет',
+    ConfigFieldsHutkigrosh::eripPath() . _DESC => 'Path in ERIP tree, where client can find bill',
 
     ClientViewFieldsHutkigrosh::INSTRUCTIONS_TAB_LABEL => 'Payment instructions',
     ClientViewFieldsHutkigrosh::INSTRUCTIONS => '<p>To pay an bill in ERIP:</p>
