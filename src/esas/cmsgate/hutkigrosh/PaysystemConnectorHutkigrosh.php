@@ -12,6 +12,7 @@ namespace esas\cmsgate\hutkigrosh;
 use esas\cmsgate\descriptors\PaySystemConnectorDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
+use esas\cmsgate\hutkigrosh\controllers\ControllerHutkigroshLogin;
 use esas\cmsgate\hutkigrosh\lang\TranslatorHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\admin\ManagedFieldsFactoryHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
@@ -42,7 +43,7 @@ class PaysystemConnectorHutkigrosh extends PaysystemConnector
     {
         return new PaySystemConnectorDescriptor(
             "cmsgate-hutkigrosh-lib",
-            new VersionDescriptor("v1.16.3", "2022-02-03"),
+            new VersionDescriptor("v1.17.0", "2022-02-21"),
             "Hutkigrosh (ERIP Belarus) cmsgate connector",
             "www.hutkigrosh.by",
             VendorDescriptor::esas(),
@@ -53,5 +54,11 @@ class PaysystemConnectorHutkigrosh extends PaysystemConnector
     public function createHooks()
     {
         return new HooksHutkigrosh();
+    }
+
+    public function checkAuth($login, $password, $sandbox)
+    {
+        $controllre = new ControllerHutkigroshLogin();
+        $controllre->process($login, $password, $sandbox);
     }
 }

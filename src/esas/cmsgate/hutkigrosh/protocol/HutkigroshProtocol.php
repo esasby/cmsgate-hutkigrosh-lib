@@ -26,7 +26,7 @@ class HutkigroshProtocol extends ProtocolCurl
 
     public function __construct($configWrapper)
     {
-        parent::__construct(self::API_URL, self::API_URL_TEST);
+        parent::__construct(self::API_URL, self::API_URL_TEST, $configWrapper);
         if (!isset(self::$cookies_file)) {
             self::$cookies_file = 'cookies-' . time() . '.txt';
         }
