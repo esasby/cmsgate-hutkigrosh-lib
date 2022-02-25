@@ -271,7 +271,7 @@ class ConfigWrapperHutkigrosh extends ConfigWrapper
     protected function needDefaults()
     {
         // предполагаем, что если в хранилище есть логин, это не первая инциализация и значения по умолчанию не нужны
-        $paymentMethodName = $this->configStorageCms->getConfig(ConfigFieldsHutkigrosh::login());
+        $paymentMethodName = $this->configStorageCms->isStorageInitialised(ConfigFieldsHutkigrosh::login());
         return empty($paymentMethodName);
     }
 
