@@ -15,6 +15,7 @@ use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRs;
 use esas\cmsgate\hutkigrosh\protocol\BillProduct;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
 use esas\cmsgate\Registry;
+use esas\cmsgate\view\client\ClientViewFields;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
@@ -64,6 +65,14 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
                 $product->setUnitPrice($cartProduct->getUnitPrice());
                 $billNewRq->addProduct($product);
                 unset($product); //??
+            }
+            if (!empty($orderWrapper->getShippingAmount()) && intval($orderWrapper->getShippingAmount()) > 0) {
+                $product = new BillProduct();
+                $product->setName(Registry::getRegistry()->getTranslator()->translate(ClientViewFields::SHIPMENT));
+                $product->setInvId("SHPMT");
+                $product->setCount(1);
+                $product->setUnitPrice($orderWrapper->getShippingAmount());
+                $billNewRq->addProduct($product);
             }
             $resp = $hg->apiBillNew($billNewRq);
             $hg->apiLogOut();
