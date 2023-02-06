@@ -67,10 +67,18 @@ class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
                 ->setMax(10)
                 ->setValidator(new ValidatorInteger(1, 10))
                 ->setRequired(true));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPending()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPayed()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusFailed()));
-        $this->registerField(new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusCanceled()));
+        $this->registerField(
+            (new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPending()))
+                ->setRequired(true));
+        $this->registerField(
+            (new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusPayed()))
+                ->setRequired(true));
+        $this->registerField(
+            (new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusFailed()))
+                ->setRequired(true));
+        $this->registerField(
+            (new ConfigFieldStatusList(ConfigFieldsHutkigrosh::orderStatusCanceled()))
+                ->setRequired(true));
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::instructionsSection())));
         $this->registerField(
@@ -80,8 +88,7 @@ class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
         $this->registerField(
             (new ConfigFieldCheckbox(ConfigFieldsHutkigrosh::webpaySection())));
         $this->registerField(
-            (new ConfigFieldRichtext(ConfigFieldsHutkigrosh::completionText()))
-                ->setRequired(true));
+            (new ConfigFieldRichtext(ConfigFieldsHutkigrosh::completionText())));
         $this->registerField(
             (new ConfigFieldText(ConfigFieldsHutkigrosh::completionCssFile()))
                 ->setRequired(false)
