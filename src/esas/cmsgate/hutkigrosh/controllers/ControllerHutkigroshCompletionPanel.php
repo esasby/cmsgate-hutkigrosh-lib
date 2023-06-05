@@ -8,9 +8,11 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO;
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHROFactory;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
@@ -20,21 +22,31 @@ class ControllerHutkigroshCompletionPanel extends ControllerHutkigrosh
 {
     /**
      * @param int|OrderWrapper $orderWrapper
-     * @return CompletionPanelHutkigrosh
+     * @return CompletionPanelHutkigroshHRO
      * @throws Throwable
      */
-    public function process($orderWrapper)
-    {
+    public function process($orderWrapper) {
         try {
             if (is_numeric($orderWrapper)) //если передан orderId
                 $orderWrapper = $this->registry->getOrderWrapperByOrderNumberOrId($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
-            if ($this->configWrapper->isAlfaclickSectionEnabled()) {
-                $completionPanel->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderWrapper));
+            $completionPanel = CompletionPanelHutkigroshHROFactory::findBuilder();
+            $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+            $completionPanel
+                ->setCompletionText($configWrapper->cookText($configWrapper->getCompletionText(), $orderWrapper))
+                ->setInstructionsSectionEnabled($configWrapper->isInstructionsSectionEnabled())
+                ->setQRCodeSectionEnabled($configWrapper->isQRCodeSectionEnabled())
+                ->setWebpaySectionEnabled($configWrapper->isWebpaySectionEnabled())
+                ->setAlfaclickSectionEnabled($configWrapper->isAlfaclickSectionEnabled())
+                ->setAdditionalCSSFile($configWrapper->getCompletionCssFile());
+            if (ConfigWrapperHutkigrosh::fromRegistry()->isAlfaclickSectionEnabled()) {
+                $completionPanel
+                    ->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderWrapper))
+                    ->setAlfaclickBillId($orderWrapper->getExtId())
+                    ->setAlfaclickPhone($orderWrapper->getMobilePhone());
             }
-            if ($this->configWrapper->isWebpaySectionEnabled()) {
+            if (ConfigWrapperHutkigrosh::fromRegistry()->isWebpaySectionEnabled()) {
                 $controller = new ControllerHutkigroshWebpayForm();
                 $webpayResp = $controller->process($orderWrapper);
                 $completionPanel->setWebpayForm($webpayResp->getHtmlForm());

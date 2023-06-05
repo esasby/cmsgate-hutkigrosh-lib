@@ -27,7 +27,7 @@ class ControllerHutkigroshAlfaclick extends ControllerHutkigrosh
             $this->logger->info($loggerMainString . "Controller started");
             if (empty($billId) || empty($phone))
                 throw new Exception('Wrong billid[' . $billId . "] or phone[" . $phone . "]");
-            $hg = new HutkigroshProtocol($this->configWrapper);
+            $hg = new HutkigroshProtocol(ConfigWrapperHutkigrosh::fromRegistry());
             $resp = $hg->apiLogIn();
             if ($resp->hasError()) {
                 $hg->apiLogOut();

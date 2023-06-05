@@ -8,7 +8,8 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
-use esas\cmsgate\hutkigrosh\view\client\CompletionPageHutkigrosh;
+use esas\cmsgate\hro\pages\ClientOrderCompletionPageHRO;
+use esas\cmsgate\hro\pages\ClientOrderCompletionPageHROFactory;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
@@ -18,7 +19,7 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
 {
     /**
      * @param int|OrderWrapper $orderWrapper
-     * @return CompletionPageHutkigrosh
+     * @return ClientOrderCompletionPageHRO
      * @throws Throwable
      */
     public function process($orderWrapper)
@@ -33,8 +34,9 @@ class ControllerHutkigroshCompletionPage extends ControllerHutkigrosh
             $completionPanel = $controller->process($orderWrapper);
             $completionPanel = $completionPanel->__toString();
 
-            $completionPage = $this->registry->getCompletionPage($orderWrapper, $completionPanel);
-            return $completionPage;
+            return ClientOrderCompletionPageHROFactory::findBuilder()
+                ->setOrderWrapper($orderWrapper)
+                ->setElementCompletionPanel($completionPanel);
         } catch (Throwable $e) {
             $this->logger->error($loggerMainString . "Controller exception! ", $e);
             Registry::getRegistry()->getMessenger()->addErrorMessage($e->getMessage());

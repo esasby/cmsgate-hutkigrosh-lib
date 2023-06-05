@@ -40,23 +40,23 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             }
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $hg = new HutkigroshProtocol($this->configWrapper);
+            $hg = new HutkigroshProtocol(ConfigWrapperHutkigrosh::fromRegistry());
             $resp = $hg->apiLogIn();
             if ($resp->hasError()) {
                 $hg->apiLogOut();
                 throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());
             }
             $billNewRq = new HutkigroshBillNewRq();
-            $billNewRq->setEripId($this->configWrapper->getEripId());
+            $billNewRq->setEripId(ConfigWrapperHutkigrosh::fromRegistry()->getEripId());
             $billNewRq->setInvId($orderWrapper->getOrderNumberOrId());
             $billNewRq->setFullName($orderWrapper->getFullName());
             $billNewRq->setMobilePhone($orderWrapper->getMobilePhone());
             $billNewRq->setEmail($orderWrapper->getEmail());
             $billNewRq->setFullAddress($orderWrapper->getAddress());
             $billNewRq->setAmount(new Amount($orderWrapper->getAmount(), $orderWrapper->getCurrency()));
-            $billNewRq->setNotifyByEMail($this->configWrapper->isEmailNotification());
-            $billNewRq->setNotifyByMobilePhone($this->configWrapper->isSmsNotification());
-            $billNewRq->setDueInterval($this->configWrapper->getDueInterval());
+            $billNewRq->setNotifyByEMail(ConfigWrapperHutkigrosh::fromRegistry()->isEmailNotification());
+            $billNewRq->setNotifyByMobilePhone(ConfigWrapperHutkigrosh::fromRegistry()->isSmsNotification());
+            $billNewRq->setDueInterval(ConfigWrapperHutkigrosh::fromRegistry()->getDueInterval());
             foreach ($orderWrapper->getProducts() as $cartProduct) {
                 $product = new BillProduct();
                 $product->setName($cartProduct->getName());

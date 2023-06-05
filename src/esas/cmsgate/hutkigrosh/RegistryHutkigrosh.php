@@ -10,9 +10,7 @@ namespace esas\cmsgate\hutkigrosh;
 
 
 use esas\cmsgate\Registry;
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
-use esas\cmsgate\utils\CMSGateException;
 use esas\cmsgate\wrappers\OrderWrapper;
 
 /**
@@ -39,22 +37,6 @@ abstract class RegistryHutkigrosh extends Registry
         return parent::getConfigWrapper();
     }
 
-    public function getCompletionPanel($orderWrapper)
-    {
-        $completionPanel = new CompletionPanelHutkigrosh($orderWrapper);
-        return $completionPanel;
-    }
-
-    /**
-     * @param $orderWrapper
-     * @param $completionPanel
-     * @throws CMSGateException
-     */
-    public function getCompletionPage($orderWrapper, $completionPanel)
-    {
-        throw new CMSGateException("Method is not implemented");
-    }
-
     /**
      * @param OrderWrapper $orderWrapper
      * @return mixed
@@ -74,6 +56,4 @@ abstract class RegistryHutkigrosh extends Registry
     {
         return parent::getHooks();
     }
-
-
 }

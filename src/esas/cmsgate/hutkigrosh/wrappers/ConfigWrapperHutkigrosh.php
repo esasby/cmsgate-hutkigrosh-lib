@@ -9,6 +9,7 @@
 namespace esas\cmsgate\hutkigrosh\wrappers;
 
 use esas\cmsgate\ConfigFields;
+use esas\cmsgate\epos\wrappers\ConfigWrapperEpos;
 use esas\cmsgate\hutkigrosh\ConfigFieldsHutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\ConfigWrapper;
@@ -16,6 +17,13 @@ use esas\cmsgate\wrappers\OrderWrapper;
 
 class ConfigWrapperHutkigrosh extends ConfigWrapper
 {
+    /**
+     * @return ConfigWrapperHutkigrosh
+     */
+    public static function fromRegistry() {
+        return Registry::getRegistry()->getConfigWrapper();
+    }
+
     /**
      * Произольно название интернет-мазагина
      * @return string

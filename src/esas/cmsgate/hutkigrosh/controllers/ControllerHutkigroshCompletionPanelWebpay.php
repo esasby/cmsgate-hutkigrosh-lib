@@ -8,8 +8,10 @@
 
 namespace esas\cmsgate\hutkigrosh\controllers;
 
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO;
+use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHROFactory;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
-use esas\cmsgate\hutkigrosh\view\client\CompletionPanelHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
@@ -19,7 +21,7 @@ class ControllerHutkigroshCompletionPanelWebpay extends ControllerHutkigrosh
 {
     /**
      * @param int|OrderWrapper $orderWrapper
-     * @return CompletionPanelHutkigrosh
+     * @return CompletionPanelHutkigroshHRO
      * @throws Throwable
      */
     public function process($orderWrapper)
@@ -29,8 +31,15 @@ class ControllerHutkigroshCompletionPanelWebpay extends ControllerHutkigrosh
                 $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $completionPanel = $this->registry->getCompletionPanel($orderWrapper);
-            $completionPanel->setAlfaclickUrl(false);
+            $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+            $completionPanel = CompletionPanelHutkigroshHROFactory::findBuilder();
+            $completionPanel
+                ->setCompletionText($configWrapper->cookText($configWrapper->getCompletionText(), $orderWrapper))
+                ->setInstructionsSectionEnabled(false)
+                ->setQRCodeSectionEnabled(false)
+                ->setWebpaySectionEnabled(true)
+                ->setAlfaclickSectionEnabled(false)
+                ->setAdditionalCSSFile($configWrapper->getCompletionCssFile());
             $controller = new ControllerHutkigroshWebpayForm();
             $webpayResp = $controller->process($orderWrapper);
             $completionPanel->setWebpayForm($webpayResp->getHtmlForm());

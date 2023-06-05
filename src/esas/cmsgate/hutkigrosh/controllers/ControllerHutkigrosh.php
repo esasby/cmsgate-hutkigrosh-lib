@@ -17,11 +17,6 @@ use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 abstract class ControllerHutkigrosh extends Controller
 {
     /**
-     * @var ConfigWrapperHutkigrosh
-     */
-    protected $configWrapper;
-
-    /**
      * @var RegistryHutkigrosh
      */
     protected $registry;
@@ -33,7 +28,6 @@ abstract class ControllerHutkigrosh extends Controller
     {
         parent::__construct();
         $this->registry = Registry::getRegistry();
-        $this->configWrapper = Registry::getRegistry()->getConfigWrapper();
     }
 
 

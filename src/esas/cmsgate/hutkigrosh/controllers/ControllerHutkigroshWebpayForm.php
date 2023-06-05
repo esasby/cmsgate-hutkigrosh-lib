@@ -30,7 +30,7 @@ class ControllerHutkigroshWebpayForm extends ControllerHutkigrosh
         try {
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $hg = new HutkigroshProtocol($this->configWrapper);
+            $hg = new HutkigroshProtocol(ConfigWrapperHutkigrosh::fromRegistry());
             $resp = $hg->apiLogIn();
             if ($resp->hasError()) {
                 $hg->apiLogOut();
