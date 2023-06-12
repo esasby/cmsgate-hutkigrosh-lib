@@ -17,10 +17,10 @@ class ResourceUtilsHutkigrosh extends ResourceUtils
     }
 
     public static function getLogoHutkigroshWhite() {
-        return self::getImageUrl(self::getImageDir(), 'hutkigrosh_by_white.svg');
+        return self::getImageUrl(self::getImageDir(), 'hutkigrosh_white.svg');
     }
 
     public static function getLogoHutkigroshWhiteVertical() {
-        return self::getImageUrl(self::getImageDir(), 'hutkigrosh_by_white_vertical.svg');
+        return self::getImageUrl(self::getImageDir(), 'hutkigrosh_white_vertical.svg');
     }
 }

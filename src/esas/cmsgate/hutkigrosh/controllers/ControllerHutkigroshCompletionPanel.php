@@ -11,8 +11,11 @@ namespace esas\cmsgate\hutkigrosh\controllers;
 use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHRO;
 use esas\cmsgate\hutkigrosh\hro\client\CompletionPanelHutkigroshHROFactory;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
+use esas\cmsgate\hutkigrosh\utils\QRUtils;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
+use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
+use esas\cmsgate\lang\Translator;
 use esas\cmsgate\Registry;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
@@ -40,13 +43,17 @@ class ControllerHutkigroshCompletionPanel extends ControllerHutkigrosh
                 ->setWebpaySectionEnabled($configWrapper->isWebpaySectionEnabled())
                 ->setAlfaclickSectionEnabled($configWrapper->isAlfaclickSectionEnabled())
                 ->setAdditionalCSSFile($configWrapper->getCompletionCssFile());
-            if (ConfigWrapperHutkigrosh::fromRegistry()->isAlfaclickSectionEnabled()) {
+            if ($configWrapper->isInstructionsSectionEnabled())
+                $completionPanel->setInstructionText($configWrapper->cookText(Translator::fromRegistry()->translate(ClientViewFieldsHutkigrosh::INSTRUCTIONS), $orderWrapper));
+            if ($configWrapper->isQRCodeSectionEnabled())
+                $completionPanel->setQrCode(QRUtils::getEripBillQR($orderWrapper));
+            if ($configWrapper->isAlfaclickSectionEnabled()) {
                 $completionPanel
                     ->setAlfaclickUrl(RegistryHutkigrosh::getRegistry()->getUrlAlfaclick($orderWrapper))
                     ->setAlfaclickBillId($orderWrapper->getExtId())
                     ->setAlfaclickPhone($orderWrapper->getMobilePhone());
             }
-            if (ConfigWrapperHutkigrosh::fromRegistry()->isWebpaySectionEnabled()) {
+            if ($configWrapper->isWebpaySectionEnabled()) {
                 $controller = new ControllerHutkigroshWebpayForm();
                 $webpayResp = $controller->process($orderWrapper);
                 $completionPanel->setWebpayForm($webpayResp->getHtmlForm());

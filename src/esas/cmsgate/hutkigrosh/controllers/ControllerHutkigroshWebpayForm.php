@@ -11,6 +11,7 @@ namespace esas\cmsgate\hutkigrosh\controllers;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshWebPayRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshWebPayRs;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\Registry;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;

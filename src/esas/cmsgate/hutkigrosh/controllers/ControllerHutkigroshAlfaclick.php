@@ -5,6 +5,7 @@ namespace esas\cmsgate\hutkigrosh\controllers;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshAlfaclickRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use Exception;
 use Throwable;
 

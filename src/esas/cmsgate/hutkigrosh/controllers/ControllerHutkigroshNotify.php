@@ -7,6 +7,7 @@ use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillInfoRs;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshProtocol;
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
 use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\utils\StringUtils;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
@@ -45,7 +46,8 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
             if (empty($billId))
                 throw new Exception('Wrong billid[' . $billId . "]");
             $this->logger->info($loggerMainString . "Loading order data from Hutkigrosh gateway...");
-            $hg = new HutkigroshProtocol(ConfigWrapperHutkigrosh::fromRegistry());
+            $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+            $hg = new HutkigroshProtocol($configWrapper);
             $resp = $hg->apiLogIn();
             if ($resp->hasError()) {
                 $hg->apiLogOut();
@@ -61,7 +63,7 @@ class ControllerHutkigroshNotify extends ControllerHutkigrosh
                 $this->localOrderWrapper = RegistryHutkigrosh::getRegistry()->getOrderWrapperByExtId($billId);
             if (empty($this->localOrderWrapper))
                 throw new Exception('Can not load order info for id[' . $this->billInfoRs->getInvId() . "]");
-            if (!ConfigWrapperHutkigrosh::fromRegistry()->isSandbox() // на тестовой системе это пока не работает
+            if (!$configWrapper->isSandbox() // на тестовой системе это пока не работает
                 && (!StringUtils::compare($this->billInfoRs->getFullName(), $this->localOrderWrapper->getFullName())
                     || !$this->billInfoRs->getAmount()->isEqual($this->localOrderWrapper->getAmountObj()))) {
                 throw new Exception("Unmapped purchaseid: localFullname[" . $this->localOrderWrapper->getFullName()

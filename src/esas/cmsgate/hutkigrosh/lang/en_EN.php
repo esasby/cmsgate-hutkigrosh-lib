@@ -124,5 +124,4 @@ return array(
     ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_POST => 'Post address: ул. Немига, 40, подъезд 1, оф. 501 г. Минск, 220004 Беларусь.',
 
     ClientViewFields::COMPLETION_PAGE_TITLE => 'Payment via ERIP',
-    ClientViewFields::COMPLETION_PAGE_HEADER => 'Payment via ERIP'
 );

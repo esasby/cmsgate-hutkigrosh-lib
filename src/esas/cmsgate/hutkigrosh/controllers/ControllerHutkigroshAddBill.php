@@ -9,6 +9,7 @@
 namespace esas\cmsgate\hutkigrosh\controllers;
 
 use esas\cmsgate\hutkigrosh\RegistryHutkigrosh;
+use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\protocol\Amount;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRq;
 use esas\cmsgate\hutkigrosh\protocol\HutkigroshBillNewRs;
@@ -40,23 +41,24 @@ class ControllerHutkigroshAddBill extends ControllerHutkigrosh
             }
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $hg = new HutkigroshProtocol(ConfigWrapperHutkigrosh::fromRegistry());
+            $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+            $hg = new HutkigroshProtocol($configWrapper);
             $resp = $hg->apiLogIn();
             if ($resp->hasError()) {
                 $hg->apiLogOut();
                 throw new Exception($resp->getResponseMessage(), $resp->getResponseCode());
             }
             $billNewRq = new HutkigroshBillNewRq();
-            $billNewRq->setEripId(ConfigWrapperHutkigrosh::fromRegistry()->getEripId());
+            $billNewRq->setEripId($configWrapper->getEripId());
             $billNewRq->setInvId($orderWrapper->getOrderNumberOrId());
             $billNewRq->setFullName($orderWrapper->getFullName());
             $billNewRq->setMobilePhone($orderWrapper->getMobilePhone());
             $billNewRq->setEmail($orderWrapper->getEmail());
             $billNewRq->setFullAddress($orderWrapper->getAddress());
             $billNewRq->setAmount(new Amount($orderWrapper->getAmount(), $orderWrapper->getCurrency()));
-            $billNewRq->setNotifyByEMail(ConfigWrapperHutkigrosh::fromRegistry()->isEmailNotification());
-            $billNewRq->setNotifyByMobilePhone(ConfigWrapperHutkigrosh::fromRegistry()->isSmsNotification());
-            $billNewRq->setDueInterval(ConfigWrapperHutkigrosh::fromRegistry()->getDueInterval());
+            $billNewRq->setNotifyByEMail($configWrapper->isEmailNotification());
+            $billNewRq->setNotifyByMobilePhone($configWrapper->isSmsNotification());
+            $billNewRq->setDueInterval($configWrapper->getDueInterval());
             foreach ($orderWrapper->getProducts() as $cartProduct) {
                 $product = new BillProduct();
                 $product->setName($cartProduct->getName());

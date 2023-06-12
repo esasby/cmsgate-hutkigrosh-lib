@@ -125,5 +125,4 @@ style="color: #8c2003;"><span>здесь</span></a></p>',
     ClientViewFieldsHutkigrosh::HUTKIGROSH_ADDRESS_POST => 'Почтовый адрес: ул. Немига, 40, подъезд 1, оф. 501 г. Минск, 220004 Беларусь.',
 
     ClientViewFields::COMPLETION_PAGE_TITLE => 'Оплата заказ в ЕРИП',
-    ClientViewFields::COMPLETION_PAGE_HEADER => 'Оплата заказ в ЕРИП'
 );
