@@ -16,7 +16,9 @@ use esas\cmsgate\hutkigrosh\utils\RequestParamsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\hutkigrosh\wrappers\ConfigWrapperHutkigrosh;
 use esas\cmsgate\lang\Translator;
+use esas\cmsgate\messenger\Messenger;
 use esas\cmsgate\Registry;
+use esas\cmsgate\view\client\ClientViewFields;
 use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
@@ -36,6 +38,34 @@ class ControllerHutkigroshCompletionPanel extends ControllerHutkigrosh
             $this->logger->info($loggerMainString . "Controller started");
             $completionPanel = CompletionPanelHutkigroshHROFactory::findBuilder();
             $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
+
+            switch ($orderWrapper->getStatus()->getOrderStatus()) {
+                case Registry::getRegistry()->getConfigWrapper()->getOrderStatusPayed():
+                    Messenger::fromRegistry()->addSuccessMessage(
+                        Registry::getRegistry()->getConfigWrapper()->cookText(
+                            Translator::fromRegistry()->translate(ClientViewFields::COMPLETION_PAGE_ORDER_PAYED_ALERT), $orderWrapper));
+                    return $completionPanel;
+                case Registry::getRegistry()->getConfigWrapper()->getOrderStatusFailed():
+                    Messenger::fromRegistry()->addErrorMessage(
+                        Registry::getRegistry()->getConfigWrapper()->cookText(
+                            Translator::fromRegistry()->translate(ClientViewFields::COMPLETION_PAGE_ORDER_FAILED_ALERT), $orderWrapper));
+                    return $completionPanel;
+                case Registry::getRegistry()->getConfigWrapper()->getOrderStatusCanceled():
+                    Messenger::fromRegistry()->addWarnMessage(
+                        Registry::getRegistry()->getConfigWrapper()->cookText(
+                            Translator::fromRegistry()->translate(ClientViewFields::COMPLETION_PAGE_ORDER_CANCELED_ALERT), $orderWrapper));
+                    return $completionPanel;
+                case Registry::getRegistry()->getConfigWrapper()->getOrderStatusPending():
+                    $completionPanel->setOrderCanBePayed(true);
+                    break;
+                default:
+                    $this->logger->error($loggerMainString . 'Unknown order status[' . $orderWrapper->getStatus()->getOrderStatus() . ']');
+                    Messenger::fromRegistry()->addWarnMessage(
+                        Registry::getRegistry()->getConfigWrapper()->cookText(
+                            Translator::fromRegistry()->translate(ClientViewFields::COMPLETION_PAGE_ORDER_UNKNOWN_STATUS_ALERT), $orderWrapper));
+                    return $completionPanel;
+            }
+
             $completionPanel
                 ->setCompletionText($configWrapper->cookText($configWrapper->getCompletionText(), $orderWrapper))
                 ->setInstructionsSectionEnabled($configWrapper->isInstructionsSectionEnabled())

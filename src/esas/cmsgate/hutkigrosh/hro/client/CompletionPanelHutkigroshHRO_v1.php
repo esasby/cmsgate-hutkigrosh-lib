@@ -9,6 +9,7 @@
 namespace esas\cmsgate\hutkigrosh\hro\client;
 
 
+use esas\cmsgate\hro\panels\MessagesPanelHROFactory;
 use esas\cmsgate\hutkigrosh\utils\ResourceUtilsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
 use esas\cmsgate\lang\Translator;
@@ -54,6 +55,11 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     protected $alfaclickSectionEnable;
 
     protected $additionalCSSFile;
+
+    /**
+     * @var bool
+     */
+    protected $orderCanBePayed = false;
 
     protected $alfaclickUrl;
     protected $alfaclickBillId;
@@ -175,7 +181,18 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function setOrderCanBePayed($orderCanBePayed) {
+        $this->orderCanBePayed = $orderCanBePayed;
+        return $this;
+    }
+
     public function build() {
+        if (!$this->orderCanBePayed) {
+            return MessagesPanelHROFactory::findBuilder()->build();
+        }
         $this->onlyOneTab = false;
         return element::content(
             element::div(
@@ -192,6 +209,9 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     }
 
     public function renderWebpayOnly() {
+        if (!$this->orderCanBePayed) {
+            return MessagesPanelHROFactory::findBuilder()->build();
+        }
         $completionPanel =
             $this->elementTab(
                 self::TAB_KEY_WEBPAY,
@@ -203,6 +223,9 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     }
 
     public function redirectWebpay() {
+        if (!$this->orderCanBePayed) {
+            echo MessagesPanelHROFactory::findBuilder()->build();
+        }
         $this->onlyOneTab = true;
         $completionPanel = element::content(
             $this->elementTab(

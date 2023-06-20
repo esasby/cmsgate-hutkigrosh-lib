@@ -80,7 +80,17 @@ interface CompletionPanelHutkigroshHRO extends HRO
      */
     public function setQrCode($qrCode);
 
+    /**
+     * @param mixed $fileName
+     * @return CompletionPanelHutkigroshHRO
+     */
     public function setAdditionalCSSFile($fileName);
+
+    /**
+     * @param bool $orderCanBePayed
+     * @return CompletionPanelHutkigroshHRO
+     */
+    public function setOrderCanBePayed($orderCanBePayed);
 
     public function renderWebpayOnly();
 
