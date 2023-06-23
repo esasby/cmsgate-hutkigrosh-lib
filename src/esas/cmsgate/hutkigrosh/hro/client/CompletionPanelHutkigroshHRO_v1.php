@@ -9,6 +9,9 @@
 namespace esas\cmsgate\hutkigrosh\hro\client;
 
 
+use esas\cmsgate\hro\accordions\AccordionHRO;
+use esas\cmsgate\hro\accordions\AccordionHROFactory;
+use esas\cmsgate\hro\accordions\AccordionTabHROFactory;
 use esas\cmsgate\hro\panels\MessagesPanelHROFactory;
 use esas\cmsgate\hutkigrosh\utils\ResourceUtilsHutkigrosh;
 use esas\cmsgate\hutkigrosh\view\client\ClientViewFieldsHutkigrosh;
@@ -200,13 +203,12 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
                 attribute::clazz($this->getCssClass4CompletionTextDiv()),
                 element::content($this->completionText)
             ),
-            element::div(
-                attribute::id("hutkigrosh-completion-tabs"),
-                attribute::clazz($this->getCssClass4TabsGroup()),
-                $this->addTabs()),
+            $this->elementTabs(),
             $this->addCss()
         );
     }
+
+    const TABS_ID = "hutkigrosh-completion-tabs";
 
     public function renderWebpayOnly() {
         if (!$this->orderCanBePayed) {
@@ -240,19 +242,25 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
         echo $completionPanel;
     }
 
-    public function addTabs() {
-        return array(
-            $this->elementInstructionsTab(),
-            $this->elementQRCodeTab(),
-            $this->elementWebpayTab(),
-            $this->elementAlfaclickTab()
-        );
+    public function elementTabs() {
+        $accordion = $this->accordionBuilder()
+            ->setId(self::TABS_ID)
+            ->addTab($this->elementInstructionsTab())
+            ->addTab($this->elementQRCodeTab())
+            ->addTab($this->elementWebpayTab())
+            ->addTab($this->elementAlfaclickTab());
+        return $accordion->build();
+    }
+
+    /**
+     * @return AccordionHRO
+     */
+    protected function accordionBuilder() {
+        return AccordionHROFactory::findBuilder();
     }
 
     public function addCss() {
         return array(
-            element::styleFile($this->getCoreCSSFilePath()), // CSS для аккордеона, общий для всех
-            element::styleFile($this->getModuleCSSFilePath()), // CSS, специфичный для модуля
             element::styleFile($this->additionalCSSFile)
         );
     }
@@ -324,48 +332,11 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
 
 
     public function elementTab($key, $header, $body, $selectable = true) {
-        return
-            element::div(
-                attribute::id("tab-" . $key),
-                attribute::clazz("tab " . $this->getCssClass4Tab()),
-                $this->elementTabHeaderInput($key, $selectable),
-                $this->elementTabHeader($key, $header),
-                $this->elementTabBody($key, $body)
-            )->__toString();
-    }
-
-    public function elementTabHeader($key, $header) {
-        return
-            element::div(
-                attribute::clazz("tab-header " . $this->getCssClass4TabHeader()),
-                element::label(
-                    attribute::forr("input-" . $key),
-                    attribute::clazz($this->getCssClass4TabHeaderLabel()),
-                    element::content($header)
-                )
-            );
-    }
-
-    public function elementTabHeaderInput($key, $selectable) {
-        return
-            ($selectable ? element::input(
-                attribute::id("input-" . $key),
-                attribute::type("radio"),
-                attribute::name("tabs2"),
-                attribute::checked($this->isTabChecked($key))
-            ) : "");
-    }
-
-    public function elementTabBody($key, $body) {
-        return
-            element::div(
-                attribute::clazz("tab-body " . $this->getCssClass4TabBody()),
-                element::div(
-                    attribute::id($key . "-content"),
-                    attribute::clazz("tab-body-content " . $this->getCssClass4TabBodyContent()),
-                    element::content($body)
-                )
-            );
+        return AccordionTabHROFactory::findBuilder()
+            ->setChecked($this->isTabChecked($key))
+            ->setHeader($header)
+            ->setBody($body)
+            ->setKey($key);
     }
 
     public function isTabChecked($tabKey) {
@@ -439,14 +410,6 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
                 $this->getAlfaclickTabLabel(),
                 $this->elementAlfaclickTabContent());
         }
-        return "";
-    }
-
-    public function getCoreCSSFilePath() {
-        return dirname(__FILE__) . "/accordion.css";
-    }
-
-    public function getModuleCSSFilePath() {
         return "";
     }
 
@@ -546,42 +509,6 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
             );
     }
 
-
-    /**
-     * @return string
-     */
-    public function getCssClass4Tab() {
-        return "";
-    }
-
-    /**
-     * @return string
-     */
-    public function getCssClass4TabHeader() {
-        return "";
-    }
-
-    /**
-     * @return string
-     */
-    public function getCssClass4TabHeaderLabel() {
-        return "";
-    }
-
-    /**
-     * @return string
-     */
-    public function getCssClass4TabBody() {
-        return "";
-    }
-
-    /**
-     * @return string
-     */
-    public function getCssClass4TabBodyContent() {
-        return "";
-    }
-
     /**
      * @return string
      */
@@ -602,14 +529,6 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     public function getCssClass4CompletionTextDiv() {
         return "";
     }
-
-    /**
-     * @return string
-     */
-    public function getCssClass4TabsGroup() {
-        return "";
-    }
-
 
     /**
      * @return string
@@ -644,5 +563,4 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     public static function builder() {
         return new CompletionPanelHutkigroshHRO_v1();
     }
-
 }
