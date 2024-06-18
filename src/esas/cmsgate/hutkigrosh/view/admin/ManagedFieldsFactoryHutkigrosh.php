@@ -99,7 +99,7 @@ class ManagedFieldsFactoryHutkigrosh extends ManagedFieldsFactory
                 ->setValidator(new ValidatorNotEmpty()));
         $this->registerField(
             (new ConfigFieldRichtext(ConfigFieldsHutkigrosh::paymentMethodDetails()))
-                ->setRequired(true)
+                ->setRequired(false)
                 ->setValidator(new ValidatorNotEmpty()));
         $this->registerField(
             (new ConfigFieldText(ConfigFieldsHutkigrosh::paymentMethodNameWebpay()))

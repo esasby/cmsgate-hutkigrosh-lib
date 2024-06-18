@@ -512,7 +512,8 @@ class CompletionPanelHutkigroshHRO_v1 implements CompletionPanelHutkigroshHRO
     /**
      * @return string
      */
-    public function getCssClass4MsgSuccess() {
+    public function getCssClass4MsgSuccess()
+    {
         return "";
     }
 
