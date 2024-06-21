@@ -36,9 +36,12 @@ class ControllerHutkigroshCompletionPanel extends ControllerHutkigrosh
                 $orderWrapper = $this->registry->getOrderWrapperByOrderNumberOrId($orderWrapper);
             $loggerMainString = "Order[" . $orderWrapper->getOrderNumberOrId() . "]: ";
             $this->logger->info($loggerMainString . "Controller started");
-            $completionPanel = CompletionPanelHutkigroshHROFactory::findBuilder();
+            if (method_exists(Registry::getRegistry(), 'getCompletionPanel')) {
+                $completionPanel = Registry::getRegistry()->getCompletionPanel($orderWrapper);
+            } else {
+                $completionPanel = CompletionPanelHutkigroshHROFactory::findBuilder();
+            }
             $configWrapper = ConfigWrapperHutkigrosh::fromRegistry();
-
             switch ($orderWrapper->getStatus()->getOrderStatus()) {
                 case Registry::getRegistry()->getConfigWrapper()->getOrderStatusPayed():
                     Messenger::fromRegistry()->addSuccessMessage(
